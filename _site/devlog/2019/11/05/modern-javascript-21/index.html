@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v6.4.0 (https://qwtel.com/hydejack/)
+-->
+
+
+
+
+
+
+
+
+
+<head>
+  <!-- =============== -->
+<!-- META            -->
+<!-- =============== -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="naver-site-verification" content="22c5b4ef3bfda7fc6100671413989219de7a4ac8"/>
+<meta property="og:title" content="[모던자바스크립트] 21. Mocha를 이용한 테스트">
+<meta property="og:type" content="article">
+
+
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets//img/js-logo.png">
+  <br/>
+
+
+<meta property="og:image:width" content="640" />
+<meta property="og:image:height" content="360" />
+
+
+
+  <title>[모던자바스크립트] 21. Mocha를 이용한 테스트 &middot; Aiden</title>
+
+
+
+<meta name="description" content="
+  이 글은 번역 및 정리 글입니다.
+출처: javascript.info
+
+
+">
+<meta property="og:description" content="
+  이 글은 번역 및 정리 글입니다.
+출처: javascript.info
+
+
+">
+
+
+
+<!-- =============== -->
+<!-- LINKS           -->
+<!-- =============== -->
+<link rel="canonical" href="http://localhost:4000/devlog/2019/11/05/modern-javascript-21/">
+<meta property="og:url" content="http://localhost:4000/devlog/2019/11/05/modern-javascript-21/">
+
+<link rel="alternate" type="application/atom+xml" title="Aiden Feed" href="http://localhost:4000/feed.xml">
+
+
+  <link rel="prev" href="http://localhost:4000/devlog/2019/11/01/modern-javascript-20/">
+
+
+
+  <link rel="next" href="http://localhost:4000/devlog/2019/11/06/modern-javascript-22/">
+
+
+<link rel="apple-touch-icon" href="http://localhost:4000/apple-touch-icon.png">
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+<!-- Place favicon.ico in the root directory -->
+
+<!-- =============== -->
+<!-- SCRIPTS         -->
+<!-- =============== -->
+<script>
+  !function(n,e){function t(n,e){n.onload=function(){this.onerror=this.onload=null,e(null,n)},n.onerror=function(){this.onerror=this.onload=null,e(new Error("Failed to load "+this.src),n)}}function o(n,e){n.onreadystatechange=function(){"complete"!=this.readyState&&"loaded"!=this.readyState||(this.onreadystatechange=null,e(null,n))}}n._loaded=!1,n.loadJSDeferred=function(a,d){function r(){n._loaded=!0;var r=e.createElement("script");r.src=a,d&&(("onload"in r?t:o)(r,d),r.onload||t(r,d));var l=e.getElementsByTagName("script")[0];l.parentNode.insertBefore(r,l)}n._loaded?r():n.addEventListener?n.addEventListener("load",r,!1):n.attachEvent?n.attachEvent("onload",r):n.onload=r}}(window,document);
+
+  !function(e){"use strict";var n=function(n,t,o){function i(e){if(a.body)return e();setTimeout(function(){i(e)})}function r(){l.addEventListener&&l.removeEventListener("load",r),l.media=o||"all"}var d,a=e.document,l=a.createElement("link");if(t)d=t;else{var f=(a.body||a.getElementsByTagName("head")[0]).childNodes;d=f[f.length-1]}var s=a.styleSheets;l.rel="stylesheet",l.href=n,l.media="only x",i(function(){d.parentNode.insertBefore(l,t?d:d.nextSibling)});var u=function(e){for(var n=l.href,t=s.length;t--;)if(s[t].href===n)return e();setTimeout(function(){u(e)})};return l.addEventListener&&l.addEventListener("load",r),l.onloadcssdefined=u,u(r),l};"undefined"!=typeof exports?exports.loadCSS=n:e.loadCSS=n}("undefined"!=typeof global?global:this);
+
+  !function(t){if(t.loadCSS){var e=loadCSS.relpreload={};if(e.support=function(){try{return t.document.createElement("link").relList.supports("preload")}catch(t){return!1}},e.poly=function(){for(var e=t.document.getElementsByTagName("link"),r=0;r<e.length;r++){var n=e[r];"preload"===n.rel&&"style"===n.getAttribute("as")&&(t.loadCSS(n.href,n,n.getAttribute("media")),n.rel=null)}},!e.support()){e.poly();var r=t.setInterval(e.poly,300);t.addEventListener&&t.addEventListener("load",function(){e.poly(),t.clearInterval(r)}),t.attachEvent&&t.attachEvent("onload",function(){t.clearInterval(r)})}}}(this);
+
+  window.disablePushState = false;
+  window.disableDrawer = false;
+</script>
+
+<!--[if lt IE 9]>
+<script src="https://unpkg.com/html5shiv/dist/html5shiv.min.js"></script>
+<![endif]-->
+
+<!-- =============== -->
+<!-- STYLES          -->
+<!-- =============== -->
+<!--[if gt IE 8]><!---->
+<style>
+  
+  article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}*{box-sizing:border-box}html,body{margin:0;padding:0}html{font-size:16px;line-height:1.75}body{color:#333;background-color:#fff;overflow-y:scroll}a{text-decoration:none}.lead{margin-left:-1rem;margin-right:-1rem}img,.img{display:block;max-width:100%;margin-bottom:1rem;border:none}img.lead,.img.lead{max-width:calc(100% + 2rem);width:calc(100% + 2rem)}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,.heading{font-weight:bold;text-rendering:optimizeLegibility}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{margin:1.6rem 0 1rem;line-height:1.6}h1,.h1{font-size:2rem;line-height:1.25}h2,.h2{font-size:1.5rem}h3,.h3{font-size:1.17em}p{margin-top:0;margin-bottom:1rem}p.lead{font-size:1.25rem;font-weight:300;padding:0 1rem}ul,ol,dl{margin-top:0;margin-bottom:1rem}ul,ol{padding-left:1.25rem}hr{position:relative;margin:1.5rem 0;border:0;border-top:1px solid #eee}.hr{padding-bottom:.5rem;border-bottom:1px solid #eee;margin-bottom:1.5rem}h4,h5,h6,.h4,.h5,.h6{margin-bottom:0.5rem;font-size:1rem}table{margin-bottom:1rem;width:100%;width:calc(100% + 2rem);margin-left:-1rem;border:1px solid #e5e5e5;border-collapse:collapse;border-spacing:0}td,th{padding:.25rem .5rem;border:1px solid #e5e5e5}td:first-child,th:first-child{padding-left:1rem}td:last-child,th:last-child{padding-right:1rem}thead+tbody,tbody+tbody,tfoot{border-top:3px double #e5e5e5}tbody tr:nth-child(odd) td,tbody tr:nth-child(odd) th{background-color:#f9f9f9}footer{margin-bottom:2rem}.page,.post{margin-bottom:3em}.page li+li,.post li+li{margin-top:.25rem}.page>header,.post>header{margin-bottom:2rem}.page-title,.post-title{margin-top:0}.post-date{display:block;margin-top:-0.5rem;margin-bottom:1rem;color:#9a9a9a}.related-posts{padding-left:0;list-style:none}.related-posts>li,.related-posts>li+li{margin-top:1rem}.related-posts>li>small,.related-posts>li+li>small{font-size:75%;color:#9a9a9a}.message{margin-bottom:1rem;padding:1rem;color:#787878;background-color:#f9f9f9;margin-left:-1rem;margin-right:-1rem}body,main{position:relative;overflow-x:hidden}@media screen{body::before{content:'';background:#e5e5e5;position:absolute;left:0;top:0;bottom:0}}@media screen and (min-width: 40em){html{font-size:17px}}@media screen and (min-width: 54em){html{font-size:16px}}@media screen and (min-width: 88em){html{font-size:17px}}@media screen and (min-width: 125em){html{font-size:18px}}.sr-only{display:none}.clearfix,.sidebar-social::after,.clearafter::after{content:"";display:table;clear:both}a,.a{position:relative;padding-bottom:.15rem;border-style:hidden}.img{overflow:hidden;background-color:#f9f9f9}.img>img{margin:0;width:100%;height:100%}.sixteen-nine{position:relative}.sixteen-nine::before{display:block;content:"";width:100%;padding-top:56.25%}.sixteen-nine>*{position:absolute;top:0;left:0;right:0;bottom:0}h1+hr,h2+hr,h3+hr,h4+hr,h5+hr,h6+hr{margin-top:0}.fade-in{animation-duration:500ms;animation-name:fade-in;animation-fill-mode:forwards}@keyframes fade-in{from{transform:translateY(-2rem);opacity:0}50%{transform:translateY(-2rem);opacity:0}to{transform:translateY(0);opacity:1}}.mb6{margin-bottom:10rem}.sidebar{color:rgba(255,255,255,0.75);text-align:left}.sidebar::before{content:"";position:absolute;z-index:2;top:0;left:0;bottom:0;right:0;background:linear-gradient(to bottom, rgba(32,32,32,0) 0%, rgba(32,32,32,0.5) 100%)}.sidebar a{color:#fff;border-bottom-color:rgba(255,255,255,0.2)}.right-side{width:100%;margin-left:auto;margin-right:auto}.right-side .ad-first{text-align:center}@media screen{.right-side{max-width:38rem;min-height:100vh}.right-side .ad-second{display:none}}@media screen and (min-width: 54em){.right-side{margin-left:20rem;margin-right:1rem;padding:4rem 1rem 12rem}.right-side .ad-second{text-align:center;display:block}}@media screen and (min-width: 72em){.right-side{margin-left:22rem;max-width:42rem}}@media screen and (min-width: 88em){.right-side{width:162px;margin-left:0rem;margin-right:0rem;padding:0rem;margin-top:10rem;display:block;float:left}}@media screen and (min-width: 96em){.right-side{width:300px;margin-right:0rem}}#_yDrawer{position:relative}@media screen{#_yDrawer{min-height:640px;min-height:100vh}}@media screen and (min-width: 54em){#_yDrawer{width:18rem;margin-left:0}}.sidebar-bg{position:absolute;height:100%;overflow:hidden;top:0;right:0;bottom:0;left:0;background:#202020 center / cover}.sidebar-box{display:flex;justify-content:center}.sidebar-sticky{position:relative;z-index:3}@media screen{.sidebar-sticky{-ms-overflow-style:none;overflow:-moz-scrollbars-none;height:100%;overflow:auto;position:absolute;padding:3rem 0rem;right:2.5rem;left:2.5rem}}.sidebar-sticky::-webkit-scrollbar{display:none}.sidebar-about>h1{color:#fff;font-size:2rem}.sidebar-nav>ul{list-style:none;padding-left:0;margin-bottom:.5rem}a.sidebar-nav-item{width:100%;font-weight:normal;display:block;line-height:1.75;padding:.25rem 0;border-bottom:1px solid rgba(255,255,255,0.2)}a.sidebar-nav-subitem{font-weight:normal;display:block;line-height:1.75;padding:.25rem 0;border-bottom:1px solid rgba(255,255,255,0.2)}@media screen{.y-drawer-scrim{z-index:2}.y-drawer-content{width:18rem;left:-18rem;z-index:3}}.sidebar-social{margin-bottom:.5rem}.sidebar-social>ul{list-style:none;padding-left:0;margin:0 -.25rem}.sidebar-social>ul>li{float:left}.sidebar-social>ul>li>a{display:inline-block;text-align:center;font-size:1.6rem;line-height:3rem;width:3.1249rem;height:4rem;padding:.5rem 0}.sidebar-social>ul li+li{margin-top:0}.fixed-top{position:fixed;top:0;left:0;width:100%;z-index:1}.navbar>.content{padding-top:0;padding-bottom:0;min-height:0;height:0}.menu{display:inline-block;padding:1.75rem 1.5rem;border-bottom:none;margin-left:-1.5rem;color:#9a9a9a !important}.menu::after{content:"\2630"}@media screen and (min-width: 54em){.menu{padding:1.25rem 1.5rem;position:absolute;left:-9999px}.menu:focus{position:static}}.animation-main{pointer-events:none}.loading{display:none}@media print{.menu{display:none}}.animation-main{opacity:0;will-change:opacity}.loading{position:absolute;top:0;right:0;padding:5.25rem 4.5rem;transform-origin:top right;transform:scale(0.33)}.content{position:relative;margin-left:auto;margin-right:auto;padding:5rem 1rem 12rem}@media screen{.content{min-height:100vh}}@media screen and (min-width: 54em){.content{padding:4rem 1rem 12rem;margin-left:19rem;margin-right:3rem}}@media screen and (min-width: 72em){.content{max-width:42rem;margin-left:21rem}}@media screen and (min-width: 88em){.content{float:left;width:100%;margin-left:22rem;margin-right:5rem}}@media screen and (min-width: 96em){.content{max-width:44rem}}@media screen and (min-width: 102em){.content{margin-left:25rem;margin-right:8rem}}.me{width:6.5rem;height:6.5rem;align-self:center;margin-right:20px;border-radius:100%;position:relative}@media screen and (min-width: 40em){.me{width:7rem;height:7rem}}@media screen and (min-width: 54em){.me{width:6.5rem;height:6.5rem}}@media screen and (min-width: 72em){.me{width:7rem;height:7rem}}main>footer{width:100%;position:absolute;bottom:0;left:0;right:0;padding:0 1rem;color:#9a9a9a;font-size:smaller;text-align:center}main>footer>p{margin-bottom:0}html{font-family:'Sans-serif'}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,.heading{font-family:'Sans-serif'}
+
+</style>
+
+
+<link rel="preload" href="http://localhost:4000/assets/css/hydejack.css?v=6.4.0" as="style" onload="this.rel='stylesheet'">
+
+<style id="_pageStyle">
+
+.content a{color:#4f86aa;border-color:rgba(79,134,170,0.2)}.content a:hover{border-color:#4f86aa}:focus{outline-color:#4f86aa}::selection{color:#fff;background:#4f86aa}::-moz-selection{color:#fff;background:#4f86aa}
+
+</style>
+
+
+<noscript>
+  <link rel="stylesheet" href="http://localhost:4000/assets/css/hydejack.css?v=6.4.0">
+  
+  
+  
+
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <style>
+      html { font-family: 'Lato', 'Sans-serif' }
+      h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .heading { font-family: 'Lato', 'Sans-serif' }
+    </style>
+  
+
+  
+  <link rel="stylesheet" href="http://localhost:4000/assets/icomoon/style.css">
+</noscript>
+<!--<![endif]-->
+
+</head>
+
+<body>
+  <!-- =============== -->
+<!-- MENU            -->
+<!-- =============== -->
+<div class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <a id="_menu" class="menu no-hover" href="#_title">
+      <span class="sr-only">Menu</span>
+    </a>
+  </div>
+</div>
+
+<!-- =============== -->
+<!-- CONTENT         -->
+<!-- =============== -->
+<div id="_yPushState">
+  <div class="fade-in">
+    <main id="_main" class="content" role="main" data-color="#4f86aa" data-image="/assets/img/nap.jpg">
+      
+
+<article id="post-devlog/2019/11/05/modern-javascript-21" class="post" role="article">
+  <header>
+    <h1 class="post-title">
+      
+        [모던자바스크립트] 21. Mocha를 이용한 테스트
+        
+    </h1>
+
+    <p class="post-date heading">
+      <time datetime="2019-11-05T00:00:00+09:00">05 Nov 2019</time>
+      
+
+
+
+
+
+
+
+
+
+in <a href="/category/devlog/" data-flip="title">Devlog</a>
+
+      
+
+
+
+
+
+
+
+
+
+on <a href="/tag/devlog-javascript/" data-flip="title">JavaScript</a>
+
+    </p>
+
+    
+  <div class="hr" style="padding-bottom:0"></div>
+
+
+  </header>
+  
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <div class="markdown-body">
+
+    <!-- 
+    <div class="head-image"><img src="http://localhost:4000/assets//img/js-logo.png" /></div>
+    <br /> -->
+    <style>
+      .myAd1190 {
+        width: 48%;
+        height: 280px;
+      }
+
+      .myAd1290 {
+        width: 48%;
+        height: 280px;
+      }
+
+      @media(max-width: 800px) {
+        .myAd1190 {
+          display: none;
+        }
+
+        .myAd1290 {
+          width: 98%;
+        }
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 300px;
+      }
+
+      .row-center {
+        display: flex;
+        justify-content: center;
+        height: 258px;
+      }
+    </style>
+    <div class='row'>
+      <ins class="adsbygoogle myAd1190" data-ad-client="ca-pub-9134477021095729" data-ad-slot="6559875097"></ins>
+      <ins class="adsbygoogle myAd1290" data-ad-client="ca-pub-9134477021095729" data-ad-slot="6559875097"></ins>
+    </div>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <br />
+    <blockquote>
+  <p>이 글은 번역 및 정리 글입니다.
+출처: javascript.info</p>
+</blockquote>
+
+<h1 id="mocha를-이용한-테스트">Mocha를 이용한 테스트</h1>
+
+<p>자동화 된 테스트는 실제 프로젝트에서도 널리 사용된다.</p>
+
+<h2 id="왜-테스트가-필요한가">왜 테스트가 필요한가?</h2>
+
+<p>함수를 작성할 때 일반적으로 어떤 기능을 수행해야하는지 떠올리며 개발한다.</p>
+
+<p>하지만 주먹구구식의 개발방식에는 문제가 있을 수 있다.</p>
+
+<h3 id="수동방식으로는-놓치는게-있을-수-있다">수동방식으로는 놓치는게 있을 수 있다.</h3>
+
+<p>예를 들어 <code class="highlighter-rouge">f(1)</code>함수가 잘 작동하고 <code class="highlighter-rouge">f(2)</code>가 잘 작동하지 않는다면, <code class="highlighter-rouge">f(2)</code>를 수정해서 확인하고 넘어가는게 맞는걸까? 정답은 <code class="highlighter-rouge">아니다</code>. 우리는 <code class="highlighter-rouge">f(1)</code>을 다시 확인해야 한다. 수정사항으로 인해 기존 결과가 달라졌을 수 있기때문이다. 이런 경우를 놓치고 가는경우가 많다.</p>
+
+<p>우리는 자동화된 테스트를 별도로 작성하여 테스트를 확인할 필요가 있다.</p>
+
+<h2 id="behavior-driven-development-bdd">Behavior Driven Development (BDD)</h2>
+
+<p>BDD를 이해하기 위해 예제 개발 사례를 살펴 보자</p>
+
+<h3 id="pow의-개발-스펙"><code class="highlighter-rouge">pow</code>의 개발: 스펙</h3>
+
+<p><code class="highlighter-rouge">pow(x, n)</code> 함수를 만들고 싶다고하자. 우리는 <code class="highlighter-rouge">n&gt;=0</code>고 가정한다.</p>
+
+<p>스펙을 정의해서 Mocha를 이용해 기술해 볼 수 있다. <code class="highlighter-rouge">test.js</code> 파일을 만들고 아래 구문을 작성하자.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>describe("pow", function() {
+
+  it("raises to n-th power", function() {
+    assert.equal(pow(2, 3), 8);
+  });
+
+});
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">describe("title", function() { ... })</code></p>
+
+<p>우리가 구현할 함수의 기능을 설명 하는 부분이다. <code class="highlighter-rouge">ìt</code>블록을 그룹화하는데에 사용된다.</p>
+
+<p><code class="highlighter-rouge">it("use case description", function() { ... })</code></p>
+
+<p>사람이 판독가능한 제목을 적어 용도를 설명하고, 테스트 함수를 작성한다.</p>
+
+<p><code class="highlighter-rouge">assert.equal(value1, value2)</code></p>
+
+<p>예상대로 작동하였는지 직접 확인하는 구문이다.</p>
+
+<h3 id="개발-흐름">개발 흐름</h3>
+
+<ol>
+  <li>가장 기본적인 기능에 대한 테스트와 함께 초기 사양을 작성한다.</li>
+  <li>초기 구현이 생성된다.</li>
+  <li>Mocha를 실행하여 오류를 확인한다. 모든 작동이 통과할때까지 수정한다.</li>
+  <li>초기 구현을 완료했다.</li>
+  <li>더 많은 유즈케이스를 스펙에 추가한다. 테스트가 실패하는경우가 생길 수 있다.</li>
+  <li>3으로 이동하여 구현을 업데이트한다.</li>
+  <li>온전히 함수가 준비될 때 까지 3-6을 반복한다.</li>
+</ol>
+
+<p>기본적으로 반복적인 개발방법이다. 작은걸 완성하고 덩치를 부풀려나간다. 결국 우리는 동작하는 함수와 테스트를 모두 갖게 된다.</p>
+
+<p>이 흐름을 따라 <code class="highlighter-rouge">pow</code>를 마저 개발해보자.</p>
+
+<h3 id="실제-사양">실제 사양</h3>
+
+<p>이 튜토리얼에서 사용하는 라이브러리는 아래와 같다.</p>
+
+<ul>
+  <li>Mocha: 테스트기능을 제공하고 실행한다.</li>
+  <li>Chai: 다양한 <code class="highlighter-rouge">assert</code>를 가지고 있는 라이브러리.</li>
+</ul>
+
+<p>Node.js를 사용할수도 있고 브라우저에서도 가능하다. 이 예제에서는 브라우저에서 진행한다.</p>
+
+<p><code class="highlighter-rouge">mocha.html</code>을 만들고 아래 구문들을 작성하자.</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- add mocha css, to show results --&gt;</span>
+    <span class="nt">&lt;link</span>
+      <span class="na">rel=</span><span class="s">"stylesheet"</span>
+      <span class="na">href=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css"</span>
+    <span class="nt">/&gt;</span>
+    <span class="c">&lt;!-- add mocha framework code --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+      <span class="nx">mocha</span><span class="p">.</span><span class="nx">setup</span><span class="p">(</span><span class="s2">"bdd"</span><span class="p">);</span> <span class="c1">// minimal setup</span>
+    <span class="nt">&lt;/script&gt;</span>
+    <span class="c">&lt;!-- add chai --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+      <span class="c1">// chai has a lot of stuff, let's make assert global</span>
+      <span class="kd">let</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">chai</span><span class="p">.</span><span class="nx">assert</span><span class="p">;</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+      <span class="kd">function</span> <span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cm">/* function code is to be written, empty now */</span>
+      <span class="p">}</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+    <span class="c">&lt;!-- the script with tests (describe, it...) --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"test.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+    <span class="c">&lt;!-- the element with id="mocha" will contain test results --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"mocha"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- run tests! --&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+      <span class="nx">mocha</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<p>이 페이지는 다섯 부분으로 나눌 수 있다.</p>
+
+<ol>
+  <li><code class="highlighter-rouge">&lt;head&gt;</code> - 테스트를 위해 타사 라이브러리과 스타일을 추가 할 수 있다.</li>
+  <li><code class="highlighter-rouge">&lt;script&gt;</code> - 테스트를 위한 함수. 우리의 경우 <code class="highlighter-rouge">pow</code></li>
+  <li>테스트 - 우리의 경우 외부 스크립트 test.js에서 <code class="highlighter-rouge">describe("pow", ...)</code>를 한다.</li>
+  <li>HTML 요소 <code class="highlighter-rouge">&lt;div id="mocha"&gt;</code>는 Mocha에서 결과를 출력하는 데 사용된다.</li>
+  <li>테스트는 명령으로 시작된다 <code class="highlighter-rouge">mocha.run()</code>.</li>
+</ol>
+
+<p><img src="../assets/img/2019-11-05-18-14-06.png" alt="" /></p>
+
+<p>실행결과는 현재 이와같다. 테스트에 실패한것이다. 우리는 <code class="highlighter-rouge">8</code>을 기대한다고 테스트파일을 작성했지만 실제로는 <code class="highlighter-rouge">undefined</code>가 반환되어 실패하는것이다.</p>
+
+<p>html코드에서 <code class="highlighter-rouge">pow</code>를 이렇게 작성해보자.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="mi">8</span><span class="p">;</span> <span class="c1">// :) 사기를 쳐보자!</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><img src="../assets/img/2019-11-05-18-17-03.png" alt="" /></p>
+
+<p>통과했다!!!</p>
+
+<h3 id="사양개선">사양개선</h3>
+
+<p>지금 우리가 작업한 코드는 분명한 속임수이다. 실제 우리가 원하는것처럼 작동하진 않을것이다.</p>
+
+<p><code class="highlighter-rouge">pow(3, 4)</code> 일 때도 검증하도록 해보자.</p>
+
+<p>두가지 방법중 하나를 택할 수 있다.</p>
+
+<h4 id="assert를-추가">assert를 추가</h4>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s2">"pow"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="s2">"raises to n-th power"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">81</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<h4 id="테스트를-하나-더-만들기">테스트를 하나 더 만들기</h4>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s2">"pow"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="s2">"2 의 3 승은 8"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">8</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s2">"3 의 4 승은 81"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">81</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>주요 차이점은 <code class="highlighter-rouge">assert</code> 오류가 발생하면 <code class="highlighter-rouge">it</code>블록이 종료된다는 것이다. 따라서 1번 케이스에서 첫번째 <code class="highlighter-rouge">assert</code>가 실패하면 두번째는 표시되지 않는다.</p>
+
+<p>테스트를 분리하는건 다양한 결과를 받아보기 좋으므로 두번째 방법이 일반적으로 더 좋다.</p>
+
+<blockquote>
+  <p>한 번의 테스트로 한 가지를 확인하자.</p>
+</blockquote>
+
+<p>두 번째 방법으로 <code class="highlighter-rouge">test.js</code>에 작성하고 테스트해보자.</p>
+
+<p><img src="../assets/img/2019-11-05-18-28-05.png" alt="" /></p>
+
+<p>실패했다.</p>
+
+<h3 id="구현-개선">구현 개선</h3>
+
+<p>테스트가 통과할 수 있도록 좀 더 실제적인 코드를 짜보자.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="c1">// 제대로</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">result</span> <span class="o">*=</span> <span class="nx">x</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>함수가 제대로 작동하는지 확인하기 위해 더 많은 값을 테스트하자. <code class="highlighter-rouge">it</code> 블록을 수동으로 작성하는 대신 <code class="highlighter-rouge">for</code>문으로 작성할 수 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s2">"pow"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">makeTest</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">expected</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="nx">it</span><span class="p">(</span><span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">x</span><span class="p">}</span> <span class="err">의</span> <span class="mi">3</span> <span class="err">승은</span> <span class="nx">$</span><span class="p">{</span><span class="nx">expected</span><span class="p">}</span><span class="err">`</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nx">expected</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">makeTest</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p><img src="../assets/img/2019-11-05-18-35-31.png" alt="" /></p>
+
+<h3 id="중첩-기술">중첩 기술</h3>
+
+<p>더 많은 테스트를 추가할건데, 그전에 현재 테스트를 그룹화 해보자.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s2">"pow"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">describe</span><span class="p">(</span><span class="s2">" x ** 3 "</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">makeTest</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">expected</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+      <span class="nx">it</span><span class="p">(</span><span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">x</span><span class="p">}</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">=</span> <span class="nx">$</span><span class="p">{</span><span class="nx">expected</span><span class="p">}</span><span class="err">`</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nx">expected</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">makeTest</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="c1">// ... 다양한 테스트들이 여기 추가 된다.</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p><img src="../assets/img/2019-11-05-18-39-26.png" alt="" /></p>
+
+<h3 id="추가-함수들">추가 함수들</h3>
+
+<p>테스트를 실행하기전/후에 실행하는 <code class="highlighter-rouge">before/after</code>, 모든 <code class="highlighter-rouge">it</code> 전/후에 실행되는 <code class="highlighter-rouge">beforeEach/afterEach</code></p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s2">"test"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">before</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Testing started – before all tests"</span><span class="p">));</span>
+  <span class="nx">after</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Testing finished – after all tests"</span><span class="p">));</span>
+
+  <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Before a test – enter a test"</span><span class="p">));</span>
+  <span class="nx">afterEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"After a test – exit a test"</span><span class="p">));</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s2">"test 1"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+  <span class="nx">it</span><span class="p">(</span><span class="s2">"test 2"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>이렇게 작성했다면 아래의 순서로 작동된다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">Testing</span> <span class="nx">started</span> <span class="err">–</span> <span class="nx">before</span> <span class="nx">all</span> <span class="nx">tests</span> <span class="p">(</span><span class="nx">before</span><span class="p">)</span>
+<span class="nx">Before</span> <span class="nx">a</span> <span class="nx">test</span> <span class="err">–</span> <span class="nx">enter</span> <span class="nx">a</span> <span class="nx">test</span> <span class="p">(</span><span class="nx">beforeEach</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="nx">After</span> <span class="nx">a</span> <span class="nx">test</span> <span class="err">–</span> <span class="nx">exit</span> <span class="nx">a</span> <span class="nx">test</span>   <span class="p">(</span><span class="nx">afterEach</span><span class="p">)</span>
+<span class="nx">Before</span> <span class="nx">a</span> <span class="nx">test</span> <span class="err">–</span> <span class="nx">enter</span> <span class="nx">a</span> <span class="nx">test</span> <span class="p">(</span><span class="nx">beforeEach</span><span class="p">)</span>
+<span class="mi">2</span>
+<span class="nx">After</span> <span class="nx">a</span> <span class="nx">test</span> <span class="err">–</span> <span class="nx">exit</span> <span class="nx">a</span> <span class="nx">test</span>   <span class="p">(</span><span class="nx">afterEach</span><span class="p">)</span>
+<span class="nx">Testing</span> <span class="nx">finished</span> <span class="err">–</span> <span class="nx">after</span> <span class="nx">all</span> <span class="nx">tests</span> <span class="p">(</span><span class="nx">after</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<h3 id="스펙-확장">스펙 확장</h3>
+
+<p><code class="highlighter-rouge">pow</code>의 기본기능이 완료되었다. 첫번째 반복이 끝났고, 샴페인을 한잔하자.</p>
+
+<p>…</p>
+
+<p>다 마셨으면 이제 다시 작업을 시작해보자.</p>
+
+<p>n이 양의 정수가 아니면 문제가 생길거고 그로인한 결과들을 테스트해보자.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s2">"pow"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s2">"마이너스 n 의 결과는 NaN"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s2">"정수가 아닌 n 의 결과는 NaN"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">));</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p><img src="../assets/img/2019-11-05-18-58-32.png" alt="" /></p>
+
+<p>테스트가 통과하지 못하므로 몇가지 코드를 더 작성해야한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="kc">NaN</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">n</span><span class="p">)</span> <span class="k">return</span> <span class="kc">NaN</span><span class="p">;</span>
+
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">result</span> <span class="o">*=</span> <span class="nx">x</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h3 id="여러가지-assert">여러가지 assert</h3>
+
+<p>assert.isNaN은 NaN을 확인한다.</p>
+
+<p>Chai 에는 다음과 같은 다른 주장이 있다 .</p>
+
+<ul>
+  <li>assert.equal(value1, value2)– 평등을 확인 value1 == value2.</li>
+  <li>assert.strictEqual(value1, value2)– 엄격한 동등 점검 value1 === value2.</li>
+  <li>assert.notEqual, assert.notStrictEqual– 위의 것과 반대로 점검.</li>
+  <li>assert.isTrue(value) – value === true</li>
+  <li>assert.isFalse(value) – value === false</li>
+  <li>… 전체 목록은 문서에 있다.</li>
+</ul>
+
+<h1 id="숙제">숙제</h1>
+
+<h2 id="테스트를-어떻게-고치는게-더-바람직할까">테스트를 어떻게 고치는게 더 바람직할까?</h2>
+
+<p>아래 테스트를 어떻게 고치는게 더 바람직할까?</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="s2">"Raises x to the power n"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+  <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nx">result</span><span class="p">);</span>
+
+  <span class="nx">result</span> <span class="o">*=</span> <span class="nx">x</span><span class="p">;</span>
+  <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nx">result</span><span class="p">);</span>
+
+  <span class="nx">result</span> <span class="o">*=</span> <span class="nx">x</span><span class="p">;</span>
+  <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+    <br />
+    <br />
+  </div>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  
+
+</article>
+
+<hr class="dingbat" />
+
+<div class="share">
+  <h2>Share this post</h2>
+  <div class="share-body">
+    <a href="http://twitter.com/share?text=[모던자바스크립트] 21. Mocha를 이용한 테스트&amp;url=http://localhost:4000/devlog/2019/11/05/modern-javascript-21/"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="icon-twitter">
+      </span>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/devlog/2019/11/05/modern-javascript-21/"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="icon-facebook">
+      </span>
+    </a>
+  </div>
+</div>
+<br />
+
+
+
+
+
+  <aside class="author" role="complementary">
+    <div class="author">
+  <h2 class="page-title hr">
+    About
+  </h2>
+<div class="author-body">
+  
+    
+  
+
+  
+
+  <img
+    src="/assets/img/me.jpeg"
+    class="me"
+    alt="aiden min"
+    srcset="/assets/img/me.jpeg 1x,/assets/img/me.jpeg 2x"
+    
+  />
+
+
+  
+  <div class="author-body-description">
+    <p>세상에서 가장 게으르기 위해 가장 부지런한 타입.
+글쓰는 것과 디자인, 개발을 좋아한다. 좋은게 좋은거고, 예쁜게 좋은거고, 노는게 좋은거라고 생각한다. 좋아하는게 많은 편.</p>
+
+  </div>
+</div>
+</div>
+
+  </aside>
+
+
+
+
+
+<aside class="related" role="complementary">
+  <h2 class="hr">Related Posts</h2>
+
+  <ul class="related-posts">
+    
+      
+      
+      
+        
+        
+          
+
+
+<li class="h4">
+  <a href="/devlog/2020/09/09/react-hooks/" data-flip="title">
+    <span>React Hooks를 알아보자</span>
+  </a>
+  <small><time datetime="2020-09-09T00:00:00+09:00">
+    09 Sep 2020
+  </time></small>
+</li>
+
+        
+      
+        
+        
+          
+
+
+<li class="h4">
+  <a href="/devlog/2019/12/09/modern-javascript-31/" data-flip="title">
+    <span>[모던자바스크립트] 31. 문자열</span>
+  </a>
+  <small><time datetime="2019-12-09T00:00:00+09:00">
+    09 Dec 2019
+  </time></small>
+</li>
+
+        
+      
+        
+        
+          
+
+
+<li class="h4">
+  <a href="/devlog/2019/12/05/modern-javascript-30-copy/" data-flip="title">
+    <span>[모던자바스크립트] 30. 원시형의 메소드</span>
+  </a>
+  <small><time datetime="2019-12-05T00:00:00+09:00">
+    05 Dec 2019
+  </time></small>
+</li>
+
+        
+      
+        
+        
+      
+    
+  </ul>
+</aside>
+
+
+
+      
+        <aside class="comments" role="complementary">
+  <h2>Comments</h2>
+  <hr/>
+
+  <div id="disqus_thread"></div>
+
+  <script>
+    !function(s,i){function e(e){var t=s.pageYOffset||i.body.scrollTop;s.DISQUS&&!s._disqusThis&&!s._disqusFirst&&t+s.innerHeight>=s._disqusThreadOffsetTop&&(s._disqusThis=!0,s.DISQUS.reset({reload:!0,config:d}))}var d=function(){this.page.title="[모던자바스크립트] 21. Mocha를 이용한 테스트",this.page.identifier="/devlog/2019/11/05/modern-javascript-21",this.page.url="http://localhost:4000/devlog/2019/11/05/modern-javascript-21/"};s._disqusFirst=void 0===s._disqusFirst||s._disqusFirst,s._disqusLoading=void 0!==s._disqusLoading&&s._disqusLoading,s._disqusThis=!1,s._disqusThreadOffsetTop=i.getElementById("disqus_thread").offsetTop,s._disqusLoading?s._disqusFirst=!1:(s._disqusLoading=!0,loadJSDeferred("//isme2n.disqus.com/embed.js"),s.addEventListener?s.addEventListener("scroll",e,{passive:!0}):s.attachEvent?s.attachEvent("onscroll",e):s.onscroll=e)}(window,document);
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</aside>
+
+      
+
+      <footer>
+  <hr/>
+  
+    <p>© 2017. by isme2n</p>
+
+  
+  <p>
+    <code>Powered by <a href="https://isme2n.github.io/">aiden</a></code>
+  </p>
+</footer>
+
+    </main>
+    <div class="right-side">
+  <div class="ad-first">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- 블로그-상단-모바일 -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:100%;"
+         data-ad-client="ca-pub-9134477021095729"
+         data-ad-slot="6559875097"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+<br/>
+<br/>
+  <div class="ad-second">
+    <!-- 블로그-스카이스크래퍼 -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;max-width:320px;width:100%;height:600px"
+         data-ad-client="ca-pub-9134477021095729"
+         data-ad-slot="6826803092"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+</div>
+
+  </div>
+  <div id="_yDrawer">
+  <div id="_sidebar" class="sidebar">
+    <div class="sidebar-bg" style="background-color:#4f86aa;background-image:url(/assets/img/nap.jpg)"></div>
+    <header class="sidebar-sticky" role="banner">
+      <br/>
+      <div class="sidebar-about">
+        <h1><a id="_title" href="/">Aiden</a></h1>
+        <p>가장 게으르기위해 가장 부지런한 개발자</p>
+
+      </div>
+
+      <br/>
+      <br/>
+      <nav class="sidebar-nav heading" role="navigation">
+        <span class="sr-only">Navigation:</span>
+<ul>
+  
+
+  
+
+  
+  
+  
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-1"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/essay/">Essay</a>
+       
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/essay-essay/">Essay</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/essay-startup/">Startup</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-2"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/tip/">Tip</a>
+       
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/tip-japan/">Japan</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/tip-tip/">Tip</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-3"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/video/">Video</a>
+       <label class="folder" for="list-item-3">▾</label>
+    </div>
+     <ul class="list-body">
+       
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/video-react/">React</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-4"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/review/">Review</a>
+       <label class="folder" for="list-item-4">▾</label>
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-book/">Book</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-event/">Event</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-things/">Things</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-movie/">Movie</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-music/">Music</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-food/">Food</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-5"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/shopping/">Shopping</a>
+       
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/shopping-shopping/">Shopping</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-6"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/doc/">Documents</a>
+       <label class="folder" for="list-item-6">▾</label>
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/doc-48wedding/">48wedding</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/doc-boilerplate/">Boilerplate</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/doc-secreport/">Secreport</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-7"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/devlog/">Devlog</a>
+       <label class="folder" for="list-item-7">▾</label>
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-web/">Web</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-javascript/">JavaScript</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-ml/">ML</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-node/">Node.js</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-react/">React</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-data/">Data</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-git/">Git</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-infra/">Infra</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-vue/">Vue</a>
+             </li>
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-linux/">Linux</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-meteor/">Meteor</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-aws/">AWS</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-jekyll/">Jekyll</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-mongo/">MongoDB</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-algorithm/">Algorithm</a>
+             </li>
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-8"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/about/">About</a>
+       
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/category/artwork/">Artwork</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+</ul>
+
+      </nav>
+    <br/>
+    <br/>
+      <div class="sidebar-box">
+        
+          
+  
+
+  
+
+  <img
+    src="/assets/img/me.jpeg"
+    class="me"
+    alt="aiden min"
+    srcset="/assets/img/me.jpeg 1x,/assets/img/me.jpeg 2x"
+    
+  />
+
+
+        
+      </div>
+      <p>게으르기 때문에 게발자. 글쓰는 걸 좋아하고, 디자인과 개발을 좋아한다.</p>
+
+      
+      
+        <div class="sidebar-social">
+          <span class="sr-only">Social:</span>
+<ul>
+  
+    
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="https://facebook.com/zooqzqz">
+    <span class="icon-facebook" title="Facebook"></span>
+    <span class="sr-only">Facebook</span>
+  </a>
+</li>
+
+  
+    
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="https://github.com/isme2n">
+    <span class="icon-github" title="GitHub"></span>
+    <span class="sr-only">GitHub</span>
+  </a>
+</li>
+
+  
+    
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="mailto:zooqzqz@gmail.com">
+    <span class="icon-mail" title="Email"></span>
+    <span class="sr-only">Email</span>
+  </a>
+</li>
+
+  
+    
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="https://isme2n.github.io/feed.xml">
+    <span class="icon-rss2" title="RSS"></span>
+    <span class="sr-only">RSS</span>
+  </a>
+</li>
+
+  
+</ul>
+
+        </div>
+      
+    </header>
+  </div>
+</div>
+
+</div>
+
+<!-- =============== -->
+<!-- SCRIPTS         -->
+<!-- =============== -->
+
+<script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-92346434-1', 'auto');
+  ga('send', 'pageview');
+  loadJSDeferred('https://www.google-analytics.com/analytics.js');
+</script>
+
+
+
+
+
+<!--[if gt IE 8]><!---->
+<script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+<script>
+  WebFont.load({
+    
+    google: {
+      families: 'Lato'.split('|')
+    },
+    
+
+    custom: {
+      families: ['icomoon'],
+      urls: ['/assets/icomoon/style.css']
+    }
+  });
+</script>
+<!--<![endif]-->
+
+
+  <!--[if gt IE 9]><!---->
+  
+  <script>loadJSDeferred('/assets/js/hydejack.js?v=6.4.0');</script>
+
+  
+  <!--<![endif]-->
+
+
+
+</body>
+
+</html>

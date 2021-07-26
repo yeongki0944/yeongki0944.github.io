@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="en"><!--
+ __  __                __                                     __
+/\ \/\ \              /\ \             __                    /\ \
+\ \ \_\ \   __  __    \_\ \      __   /\_\      __       ___ \ \ \/'\
+ \ \  _  \ /\ \/\ \   /'_` \   /'__`\ \/\ \   /'__`\    /'___\\ \ , <
+  \ \ \ \ \\ \ \_\ \ /\ \L\ \ /\  __/  \ \ \ /\ \L\.\_ /\ \__/ \ \ \\`\
+   \ \_\ \_\\/`____ \\ \___,_\\ \____\ _\ \ \\ \__/.\_\\ \____\ \ \_\ \_\
+    \/_/\/_/ `/___/> \\/__,_ / \/____//\ \_\ \\/__/\/_/ \/____/  \/_/\/_/
+                /\___/                \ \____/
+                \/__/                  \/___/
+
+Powered by Hydejack v6.4.0 (https://qwtel.com/hydejack/)
+-->
+
+
+
+
+
+
+
+
+
+<head>
+  <!-- =============== -->
+<!-- META            -->
+<!-- =============== -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="naver-site-verification" content="22c5b4ef3bfda7fc6100671413989219de7a4ac8"/>
+<meta property="og:title" content="[모던자바스크립트] 31. 문자열">
+<meta property="og:type" content="article">
+
+
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets//img/js-logo.png">
+  <br/>
+
+
+<meta property="og:image:width" content="640" />
+<meta property="og:image:height" content="360" />
+
+
+
+  <title>[모던자바스크립트] 31. 문자열 &middot; Aiden</title>
+
+
+
+<meta name="description" content="
+  이 글은 번역 및 정리 글입니다.
+출처: javascript.info
+
+
+">
+<meta property="og:description" content="
+  이 글은 번역 및 정리 글입니다.
+출처: javascript.info
+
+
+">
+
+
+
+<!-- =============== -->
+<!-- LINKS           -->
+<!-- =============== -->
+<link rel="canonical" href="http://localhost:4000/devlog/2019/12/09/modern-javascript-31/">
+<meta property="og:url" content="http://localhost:4000/devlog/2019/12/09/modern-javascript-31/">
+
+<link rel="alternate" type="application/atom+xml" title="Aiden Feed" href="http://localhost:4000/feed.xml">
+
+
+  <link rel="prev" href="http://localhost:4000/devlog/2019/12/05/modern-javascript-30-copy/">
+
+
+
+  <link rel="next" href="http://localhost:4000/devlog/2020/09/09/react-hooks/">
+
+
+<link rel="apple-touch-icon" href="http://localhost:4000/apple-touch-icon.png">
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+<!-- Place favicon.ico in the root directory -->
+
+<!-- =============== -->
+<!-- SCRIPTS         -->
+<!-- =============== -->
+<script>
+  !function(n,e){function t(n,e){n.onload=function(){this.onerror=this.onload=null,e(null,n)},n.onerror=function(){this.onerror=this.onload=null,e(new Error("Failed to load "+this.src),n)}}function o(n,e){n.onreadystatechange=function(){"complete"!=this.readyState&&"loaded"!=this.readyState||(this.onreadystatechange=null,e(null,n))}}n._loaded=!1,n.loadJSDeferred=function(a,d){function r(){n._loaded=!0;var r=e.createElement("script");r.src=a,d&&(("onload"in r?t:o)(r,d),r.onload||t(r,d));var l=e.getElementsByTagName("script")[0];l.parentNode.insertBefore(r,l)}n._loaded?r():n.addEventListener?n.addEventListener("load",r,!1):n.attachEvent?n.attachEvent("onload",r):n.onload=r}}(window,document);
+
+  !function(e){"use strict";var n=function(n,t,o){function i(e){if(a.body)return e();setTimeout(function(){i(e)})}function r(){l.addEventListener&&l.removeEventListener("load",r),l.media=o||"all"}var d,a=e.document,l=a.createElement("link");if(t)d=t;else{var f=(a.body||a.getElementsByTagName("head")[0]).childNodes;d=f[f.length-1]}var s=a.styleSheets;l.rel="stylesheet",l.href=n,l.media="only x",i(function(){d.parentNode.insertBefore(l,t?d:d.nextSibling)});var u=function(e){for(var n=l.href,t=s.length;t--;)if(s[t].href===n)return e();setTimeout(function(){u(e)})};return l.addEventListener&&l.addEventListener("load",r),l.onloadcssdefined=u,u(r),l};"undefined"!=typeof exports?exports.loadCSS=n:e.loadCSS=n}("undefined"!=typeof global?global:this);
+
+  !function(t){if(t.loadCSS){var e=loadCSS.relpreload={};if(e.support=function(){try{return t.document.createElement("link").relList.supports("preload")}catch(t){return!1}},e.poly=function(){for(var e=t.document.getElementsByTagName("link"),r=0;r<e.length;r++){var n=e[r];"preload"===n.rel&&"style"===n.getAttribute("as")&&(t.loadCSS(n.href,n,n.getAttribute("media")),n.rel=null)}},!e.support()){e.poly();var r=t.setInterval(e.poly,300);t.addEventListener&&t.addEventListener("load",function(){e.poly(),t.clearInterval(r)}),t.attachEvent&&t.attachEvent("onload",function(){t.clearInterval(r)})}}}(this);
+
+  window.disablePushState = false;
+  window.disableDrawer = false;
+</script>
+
+<!--[if lt IE 9]>
+<script src="https://unpkg.com/html5shiv/dist/html5shiv.min.js"></script>
+<![endif]-->
+
+<!-- =============== -->
+<!-- STYLES          -->
+<!-- =============== -->
+<!--[if gt IE 8]><!---->
+<style>
+  
+  article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}*{box-sizing:border-box}html,body{margin:0;padding:0}html{font-size:16px;line-height:1.75}body{color:#333;background-color:#fff;overflow-y:scroll}a{text-decoration:none}.lead{margin-left:-1rem;margin-right:-1rem}img,.img{display:block;max-width:100%;margin-bottom:1rem;border:none}img.lead,.img.lead{max-width:calc(100% + 2rem);width:calc(100% + 2rem)}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,.heading{font-weight:bold;text-rendering:optimizeLegibility}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{margin:1.6rem 0 1rem;line-height:1.6}h1,.h1{font-size:2rem;line-height:1.25}h2,.h2{font-size:1.5rem}h3,.h3{font-size:1.17em}p{margin-top:0;margin-bottom:1rem}p.lead{font-size:1.25rem;font-weight:300;padding:0 1rem}ul,ol,dl{margin-top:0;margin-bottom:1rem}ul,ol{padding-left:1.25rem}hr{position:relative;margin:1.5rem 0;border:0;border-top:1px solid #eee}.hr{padding-bottom:.5rem;border-bottom:1px solid #eee;margin-bottom:1.5rem}h4,h5,h6,.h4,.h5,.h6{margin-bottom:0.5rem;font-size:1rem}table{margin-bottom:1rem;width:100%;width:calc(100% + 2rem);margin-left:-1rem;border:1px solid #e5e5e5;border-collapse:collapse;border-spacing:0}td,th{padding:.25rem .5rem;border:1px solid #e5e5e5}td:first-child,th:first-child{padding-left:1rem}td:last-child,th:last-child{padding-right:1rem}thead+tbody,tbody+tbody,tfoot{border-top:3px double #e5e5e5}tbody tr:nth-child(odd) td,tbody tr:nth-child(odd) th{background-color:#f9f9f9}footer{margin-bottom:2rem}.page,.post{margin-bottom:3em}.page li+li,.post li+li{margin-top:.25rem}.page>header,.post>header{margin-bottom:2rem}.page-title,.post-title{margin-top:0}.post-date{display:block;margin-top:-0.5rem;margin-bottom:1rem;color:#9a9a9a}.related-posts{padding-left:0;list-style:none}.related-posts>li,.related-posts>li+li{margin-top:1rem}.related-posts>li>small,.related-posts>li+li>small{font-size:75%;color:#9a9a9a}.message{margin-bottom:1rem;padding:1rem;color:#787878;background-color:#f9f9f9;margin-left:-1rem;margin-right:-1rem}body,main{position:relative;overflow-x:hidden}@media screen{body::before{content:'';background:#e5e5e5;position:absolute;left:0;top:0;bottom:0}}@media screen and (min-width: 40em){html{font-size:17px}}@media screen and (min-width: 54em){html{font-size:16px}}@media screen and (min-width: 88em){html{font-size:17px}}@media screen and (min-width: 125em){html{font-size:18px}}.sr-only{display:none}.clearfix,.sidebar-social::after,.clearafter::after{content:"";display:table;clear:both}a,.a{position:relative;padding-bottom:.15rem;border-style:hidden}.img{overflow:hidden;background-color:#f9f9f9}.img>img{margin:0;width:100%;height:100%}.sixteen-nine{position:relative}.sixteen-nine::before{display:block;content:"";width:100%;padding-top:56.25%}.sixteen-nine>*{position:absolute;top:0;left:0;right:0;bottom:0}h1+hr,h2+hr,h3+hr,h4+hr,h5+hr,h6+hr{margin-top:0}.fade-in{animation-duration:500ms;animation-name:fade-in;animation-fill-mode:forwards}@keyframes fade-in{from{transform:translateY(-2rem);opacity:0}50%{transform:translateY(-2rem);opacity:0}to{transform:translateY(0);opacity:1}}.mb6{margin-bottom:10rem}.sidebar{color:rgba(255,255,255,0.75);text-align:left}.sidebar::before{content:"";position:absolute;z-index:2;top:0;left:0;bottom:0;right:0;background:linear-gradient(to bottom, rgba(32,32,32,0) 0%, rgba(32,32,32,0.5) 100%)}.sidebar a{color:#fff;border-bottom-color:rgba(255,255,255,0.2)}.right-side{width:100%;margin-left:auto;margin-right:auto}.right-side .ad-first{text-align:center}@media screen{.right-side{max-width:38rem;min-height:100vh}.right-side .ad-second{display:none}}@media screen and (min-width: 54em){.right-side{margin-left:20rem;margin-right:1rem;padding:4rem 1rem 12rem}.right-side .ad-second{text-align:center;display:block}}@media screen and (min-width: 72em){.right-side{margin-left:22rem;max-width:42rem}}@media screen and (min-width: 88em){.right-side{width:162px;margin-left:0rem;margin-right:0rem;padding:0rem;margin-top:10rem;display:block;float:left}}@media screen and (min-width: 96em){.right-side{width:300px;margin-right:0rem}}#_yDrawer{position:relative}@media screen{#_yDrawer{min-height:640px;min-height:100vh}}@media screen and (min-width: 54em){#_yDrawer{width:18rem;margin-left:0}}.sidebar-bg{position:absolute;height:100%;overflow:hidden;top:0;right:0;bottom:0;left:0;background:#202020 center / cover}.sidebar-box{display:flex;justify-content:center}.sidebar-sticky{position:relative;z-index:3}@media screen{.sidebar-sticky{-ms-overflow-style:none;overflow:-moz-scrollbars-none;height:100%;overflow:auto;position:absolute;padding:3rem 0rem;right:2.5rem;left:2.5rem}}.sidebar-sticky::-webkit-scrollbar{display:none}.sidebar-about>h1{color:#fff;font-size:2rem}.sidebar-nav>ul{list-style:none;padding-left:0;margin-bottom:.5rem}a.sidebar-nav-item{width:100%;font-weight:normal;display:block;line-height:1.75;padding:.25rem 0;border-bottom:1px solid rgba(255,255,255,0.2)}a.sidebar-nav-subitem{font-weight:normal;display:block;line-height:1.75;padding:.25rem 0;border-bottom:1px solid rgba(255,255,255,0.2)}@media screen{.y-drawer-scrim{z-index:2}.y-drawer-content{width:18rem;left:-18rem;z-index:3}}.sidebar-social{margin-bottom:.5rem}.sidebar-social>ul{list-style:none;padding-left:0;margin:0 -.25rem}.sidebar-social>ul>li{float:left}.sidebar-social>ul>li>a{display:inline-block;text-align:center;font-size:1.6rem;line-height:3rem;width:3.1249rem;height:4rem;padding:.5rem 0}.sidebar-social>ul li+li{margin-top:0}.fixed-top{position:fixed;top:0;left:0;width:100%;z-index:1}.navbar>.content{padding-top:0;padding-bottom:0;min-height:0;height:0}.menu{display:inline-block;padding:1.75rem 1.5rem;border-bottom:none;margin-left:-1.5rem;color:#9a9a9a !important}.menu::after{content:"\2630"}@media screen and (min-width: 54em){.menu{padding:1.25rem 1.5rem;position:absolute;left:-9999px}.menu:focus{position:static}}.animation-main{pointer-events:none}.loading{display:none}@media print{.menu{display:none}}.animation-main{opacity:0;will-change:opacity}.loading{position:absolute;top:0;right:0;padding:5.25rem 4.5rem;transform-origin:top right;transform:scale(0.33)}.content{position:relative;margin-left:auto;margin-right:auto;padding:5rem 1rem 12rem}@media screen{.content{min-height:100vh}}@media screen and (min-width: 54em){.content{padding:4rem 1rem 12rem;margin-left:19rem;margin-right:3rem}}@media screen and (min-width: 72em){.content{max-width:42rem;margin-left:21rem}}@media screen and (min-width: 88em){.content{float:left;width:100%;margin-left:22rem;margin-right:5rem}}@media screen and (min-width: 96em){.content{max-width:44rem}}@media screen and (min-width: 102em){.content{margin-left:25rem;margin-right:8rem}}.me{width:6.5rem;height:6.5rem;align-self:center;margin-right:20px;border-radius:100%;position:relative}@media screen and (min-width: 40em){.me{width:7rem;height:7rem}}@media screen and (min-width: 54em){.me{width:6.5rem;height:6.5rem}}@media screen and (min-width: 72em){.me{width:7rem;height:7rem}}main>footer{width:100%;position:absolute;bottom:0;left:0;right:0;padding:0 1rem;color:#9a9a9a;font-size:smaller;text-align:center}main>footer>p{margin-bottom:0}html{font-family:'Sans-serif'}h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,.heading{font-family:'Sans-serif'}
+
+</style>
+
+
+<link rel="preload" href="http://localhost:4000/assets/css/hydejack.css?v=6.4.0" as="style" onload="this.rel='stylesheet'">
+
+<style id="_pageStyle">
+
+.content a{color:#4f86aa;border-color:rgba(79,134,170,0.2)}.content a:hover{border-color:#4f86aa}:focus{outline-color:#4f86aa}::selection{color:#fff;background:#4f86aa}::-moz-selection{color:#fff;background:#4f86aa}
+
+</style>
+
+
+<noscript>
+  <link rel="stylesheet" href="http://localhost:4000/assets/css/hydejack.css?v=6.4.0">
+  
+  
+  
+
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <style>
+      html { font-family: 'Lato', 'Sans-serif' }
+      h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .heading { font-family: 'Lato', 'Sans-serif' }
+    </style>
+  
+
+  
+  <link rel="stylesheet" href="http://localhost:4000/assets/icomoon/style.css">
+</noscript>
+<!--<![endif]-->
+
+</head>
+
+<body>
+  <!-- =============== -->
+<!-- MENU            -->
+<!-- =============== -->
+<div class="navbar fixed-top">
+  <div class="content">
+    <span class="sr-only">Jump to:</span>
+    <a id="_menu" class="menu no-hover" href="#_title">
+      <span class="sr-only">Menu</span>
+    </a>
+  </div>
+</div>
+
+<!-- =============== -->
+<!-- CONTENT         -->
+<!-- =============== -->
+<div id="_yPushState">
+  <div class="fade-in">
+    <main id="_main" class="content" role="main" data-color="#4f86aa" data-image="/assets/img/nap.jpg">
+      
+
+<article id="post-devlog/2019/12/09/modern-javascript-31" class="post" role="article">
+  <header>
+    <h1 class="post-title">
+      
+        [모던자바스크립트] 31. 문자열
+        
+    </h1>
+
+    <p class="post-date heading">
+      <time datetime="2019-12-09T00:00:00+09:00">09 Dec 2019</time>
+      
+
+
+
+
+
+
+
+
+
+in <a href="/category/devlog/" data-flip="title">Devlog</a>
+
+      
+
+
+
+
+
+
+
+
+
+on <a href="/tag/devlog-javascript/" data-flip="title">JavaScript</a>
+
+    </p>
+
+    
+  <div class="hr" style="padding-bottom:0"></div>
+
+
+  </header>
+  
+
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  <div class="markdown-body">
+
+    <!-- 
+    <div class="head-image"><img src="http://localhost:4000/assets//img/js-logo.png" /></div>
+    <br /> -->
+    <style>
+      .myAd1190 {
+        width: 48%;
+        height: 280px;
+      }
+
+      .myAd1290 {
+        width: 48%;
+        height: 280px;
+      }
+
+      @media(max-width: 800px) {
+        .myAd1190 {
+          display: none;
+        }
+
+        .myAd1290 {
+          width: 98%;
+        }
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 300px;
+      }
+
+      .row-center {
+        display: flex;
+        justify-content: center;
+        height: 258px;
+      }
+    </style>
+    <div class='row'>
+      <ins class="adsbygoogle myAd1190" data-ad-client="ca-pub-9134477021095729" data-ad-slot="6559875097"></ins>
+      <ins class="adsbygoogle myAd1290" data-ad-client="ca-pub-9134477021095729" data-ad-slot="6559875097"></ins>
+    </div>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <br />
+    <blockquote>
+  <p>이 글은 번역 및 정리 글입니다.
+출처: javascript.info</p>
+</blockquote>
+
+<h1 id="문자열">문자열</h1>
+
+<p>자바스크립트에서 텍스트 데이터는 문자열로 저장된다. 단일 문자에 대한 별도의 타입이 존재하지는 않는다.</p>
+
+<p>문자열의 내부 형식은 <code class="highlighter-rouge">UTF-16</code>이며 페이지 인코딩과는 관련이 없다.</p>
+
+<h2 id="따옴표">따옴표</h2>
+
+<p>따옴표는 작은 따옴표, 큰 따옴표, 역 따옴표가 있ㅆ다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">single</span> <span class="o">=</span> <span class="s1">'single-quoted'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="kr">double</span> <span class="o">=</span> <span class="s1">'double-quoted'</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">backticks</span> <span class="o">=</span> <span class="err">`</span><span class="nx">backticks</span><span class="err">`</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>작은 따옴표와 큰 따옴표는 기본적으로 동일하다. 그러나 백틱을 사용하면 표현식을 다음과 같이 묶어 문자열에 포함시킬 수 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="err">`</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">=</span> <span class="nx">$</span><span class="p">{</span><span class="nx">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}.</span><span class="err">`</span><span class="p">);</span> <span class="c1">// 1 + 2 = 3.</span>
+</code></pre>
+</div>
+
+<p>백틱을 사용하는 또 다른 장점은 문자열이 여러 줄로 확장 될 수 있다는 것이다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">guestList</span> <span class="o">=</span> <span class="err">`</span><span class="nx">Guests</span><span class="err">:</span>
+ <span class="o">*</span> <span class="nx">John</span>
+ <span class="o">*</span> <span class="nx">Pete</span>
+ <span class="o">*</span> <span class="nx">Mary</span>
+<span class="err">`</span><span class="p">;</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">guestList</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>백틱은 추가로 <code class="highlighter-rouge">태그 템플릿</code>이 더 있지만 자주 사용되지는 않는다.</p>
+
+<h2 id="특수-문자">특수 문자</h2>
+
+<p>줄 바꿈을 나타내는 <code class="highlighter-rouge">줄 바꿈 문자</code>를 사용하여 작은 따옴표와 큰 따옴표로 여러 줄 문자열을 만들 수 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">guestList</span> <span class="o">=</span> <span class="s1">'Guests:\n * John\n * Pete\n * Mary'</span><span class="p">;</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">guestList</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>아래 두 줄은 동일하지만 다르게 작성되었다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str1</span> <span class="o">=</span> <span class="s1">'Hello\nWorld'</span><span class="p">;</span> <span class="c1">// 개행문자로 두줄</span>
+
+<span class="c1">// 백틱으로 구현한 두 줄</span>
+<span class="kd">let</span> <span class="nx">str2</span> <span class="o">=</span> <span class="err">`</span><span class="nx">Hello</span>
+<span class="nx">World</span><span class="err">`</span><span class="p">;</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str1</span> <span class="o">==</span> <span class="nx">str2</span><span class="p">);</span> <span class="c1">// true</span>
+</code></pre>
+</div>
+
+<p>이 외에도 여러가지 특수 문자가 있다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>문자</th>
+      <th style="text-align: left">기술</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">\n</code></td>
+      <td style="text-align: left">줄바꿈</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">\r</code></td>
+      <td style="text-align: left">캐리지 리턴: 단독으로 사용되지 않고, 윈도우즈 텍스트파일은 <code class="highlighter-rouge">\r\n</code>으로 줄 바꿈을 나타낸다.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">\'</code>,<code class="highlighter-rouge">\"</code></td>
+      <td style="text-align: left">인용 부호</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">\\</code></td>
+      <td style="text-align: left">백 슬래시</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">\t</code></td>
+      <td style="text-align: left">탭</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">\b</code>,<code class="highlighter-rouge">\f</code>,<code class="highlighter-rouge">\v</code></td>
+      <td style="text-align: left">백 스페이스, 폼 피드(프린트 출력시 페이지 마침), 세로 탭 - 호환성을 위해 유지되며 현재는 사용되지 않는다.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">\xXX</code></td>
+      <td style="text-align: left">주어진 16 진수 유니 코드를 가진 유니코드 문자 <code class="highlighter-rouge">XX</code>. e.g. <code class="highlighter-rouge">\x7A</code> 는 <code class="highlighter-rouge">z</code>와 같다.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">\uXXXX</code></td>
+      <td style="text-align: left">예를 들어 UTF-16 인코딩의 16진 코드 <code class="highlighter-rouge">u00A9</code> - 은 저작권 기호 <code class="highlighter-rouge">©</code>. 4자리 16진수 여야 한다.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">u{X...XXXXXX}</code>(1-6자)</td>
+      <td style="text-align: left">주어진 UTF-32 인코딩을 가진 유니 코드 심볼. 일부 희귀 문자는 2 바이트의 유니 코드 기호로 인코딩되어 4 바이트를 사용한다. 이런 식으로 긴 코드를 삽입 할 수 있다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>유니코드를 사용한 예:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'\u00A9'</span><span class="p">);</span> <span class="c1">// ©</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'\u{20331}'</span><span class="p">);</span> <span class="c1">// 佫</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'\u{1F60D}'</span><span class="p">);</span> <span class="c1">// 😍</span>
+</code></pre>
+</div>
+
+<p>모든 특수 문자는 백 슬래시 문자로 시작한다. 이스케이프 문자라고도 한다.</p>
+
+<p>문자열에 따옴표를 삽입하려는 경우에도 사용할 수 있다.</p>
+
+<p>예를 들어</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s2">"I'm the Walrus!"</span><span class="p">);</span> <span class="c1">// I'm the Walrus!</span>
+</code></pre>
+</div>
+
+<p>같은 크기의 따옴표 안에서 따옴표를 사용하려면 백 슬래시를 붙여야한다.</p>
+
+<h2 id="문자열-길이">문자열 길이</h2>
+
+<p>이 <code class="highlighter-rouge">length</code>속성의 문자열 길이는 다음과 같다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="err">`</span><span class="nx">My</span><span class="err">\</span><span class="nx">n</span><span class="err">`</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span> <span class="c1">// 3</span>
+</code></pre>
+</div>
+
+<h2 id="캐릭터-접근">캐릭터 접근</h2>
+
+<p>위치에 문자를 가져 오려면 <code class="highlighter-rouge">[pos]</code>처럼 대괄호를 사용하거나 <code class="highlighter-rouge">str.charAt(pos)</code>메소드를 호출한다. 첫 번째 문자는 0 위치에서 시작한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="err">`</span><span class="nx">Hello</span><span class="err">`</span><span class="p">;</span>
+
+<span class="c1">// 첫번째 글자</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// H</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span> <span class="c1">// H</span>
+
+<span class="c1">// 마지막 글자</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">[</span><span class="nx">str</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span> <span class="c1">// o</span>
+</code></pre>
+</div>
+
+<p>대괄호는 문자를 얻는 현대적은 방법이지만 <code class="highlighter-rouge">charAt</code>이 역사적 이유로 존재한다.</p>
+
+<p>그들 사이의 유일한 차이점은 그 어떤 문자가 발견되지 않으면 <code class="highlighter-rouge">[]</code>는 <code class="highlighter-rouge">undefined</code>를 반환하고 <code class="highlighter-rouge">chatAt</code>은 빈 문자열을 반환한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="err">`</span><span class="nx">Hello</span><span class="err">`</span><span class="p">;</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">[</span><span class="mi">1000</span><span class="p">]);</span> <span class="c1">// undefined</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">1000</span><span class="p">));</span> <span class="c1">// '' (an empty string)</span>
+</code></pre>
+</div>
+
+<p>다음처럼 문자를 반복할 수도 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="kr">char</span> <span class="nx">of</span> <span class="s1">'Hello'</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="kr">char</span><span class="p">);</span> <span class="c1">// H,e,l,l,o</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h2 id="문자열은-불변이다">문자열은 불변이다.</h2>
+
+<p>자바스크립트에서는 문자열을 변경할 수 없다. 캐릭터를 바꾸는 것은 불가능하다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'Hi'</span><span class="p">;</span>
+
+<span class="nx">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'h'</span><span class="p">;</span> <span class="c1">// error</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// 작동하지 않는다.</span>
+</code></pre>
+</div>
+
+<h2 id="케이스-변경">케이스 변경</h2>
+
+<p><code class="highlighter-rouge">toLowerCase</code> 및 <code class="highlighter-rouge">toUpperCase()</code> 메소드가 대소문자를 변경한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'Interface'</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">());</span> <span class="c1">// INTERFACE</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'Interface'</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">());</span> <span class="c1">// interface</span>
+</code></pre>
+</div>
+
+<p>또는 단일 문자를 소문자로 사용하려는 경우:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'Interface'</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">());</span> <span class="c1">// 'i'</span>
+</code></pre>
+</div>
+
+<h2 id="부분-문자열-검색">부분 문자열 검색</h2>
+
+<p>문자열 내에서 하위 문자열을 찾는 여러가지 방법이 있다.</p>
+
+<h3 id="strindexof">str.indexOf</h3>
+
+<p>첫 번째 방법은 <code class="highlighter-rouge">str.indexOf(substr, pos)</code> 이다.</p>
+
+<p>주어진 위치에서 시작하여 <code class="highlighter-rouge">substr</code>을 찾고 일치하는 위치를 찾거나 찾을 수 없으면 <code class="highlighter-rouge">-1</code>을 반환한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'Widget with id'</span><span class="p">;</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'Widget'</span><span class="p">));</span> <span class="c1">// 0</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'widget'</span><span class="p">));</span> <span class="c1">// -1</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'id'</span><span class="p">));</span> <span class="c1">// 1, W'id'get</span>
+</code></pre>
+</div>
+
+<p>선택적 두 번째 매개 변수를 사용하면 주어진 위치에서 시작하여 검색 할 수 있다.</p>
+
+<p>예를 들어 첫 번째 항목은 <code class="highlighter-rouge">id</code>가 <code class="highlighter-rouge">1</code>의 위치에 있다. 다음 항목을 찾으려면 <code class="highlighter-rouge">2</code> 위치인자를 넣어 검색한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'Widget with id'</span><span class="p">;</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">// 12</span>
+</code></pre>
+</div>
+
+<p>모든 경우에 관심이 있다면 <code class="highlighter-rouge">indexOf</code>를 루프에서 실행할 수 있다. 모든 콜은 이전 위치에서부터로 이루어진다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'As sly as a fox, as strong as an ox'</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">target</span> <span class="o">=</span> <span class="s1">'as'</span><span class="p">;</span> <span class="c1">// 이걸 찾아보자</span>
+
+<span class="kd">let</span> <span class="nx">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">foundPos</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">pos</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">foundPos</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+
+  <span class="nx">alert</span><span class="p">(</span><span class="err">`</span><span class="nx">Found</span> <span class="nx">at</span> <span class="nx">$</span><span class="p">{</span><span class="nx">foundPos</span><span class="p">}</span><span class="err">`</span><span class="p">);</span>
+  <span class="nx">pos</span> <span class="o">=</span> <span class="nx">foundPos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 다음 위치를 찾아보자</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>같은 알고리즘을 더 짧게 배치 할 수 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'As sly as a fox, as strong as an ox'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">target</span> <span class="o">=</span> <span class="s1">'as'</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">pos</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">((</span><span class="nx">pos</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="nx">pos</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">indexOf</code>를 사용할 때 주의해야 할 점이 있는데, 살펴보자.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'Widget with id'</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'Widget'</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s1">'We found it'</span><span class="p">);</span> <span class="c1">// 작동하지 않는다. 0은 falsy값이기 때문에</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>제대로 동작하게 하려면 아래와 같이 해야한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'Widget with id'</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'Widget'</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s1">'We found it'</span><span class="p">);</span> <span class="c1">// 이제 작동!</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h4 id="비트-not-트릭">비트 NOT 트릭</h4>
+
+<p><code class="highlighter-rouge">indexOf</code>를 동작시키는데 사용하는 간단한 트릭 중에 하나는 <code class="highlighter-rouge">비트 NOT</code> 연산자이다.</p>
+
+<p>숫자를 32비트 정수로 변환하고 (소수부분이 존재한다면 제거) 이진 표현의 모든 비트를 반전시킨다.</p>
+
+<p>컴퓨터공학적인 설명은 이렇고, 결과적으로는 <code class="highlighter-rouge">~n = -(n+1)</code>을 의미한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="o">~</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// -3, -(2+1)</span>
+<span class="nx">alert</span><span class="p">(</span><span class="o">~</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// -2, -(1+1)</span>
+<span class="nx">alert</span><span class="p">(</span><span class="o">~</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// -1, -(0+1)</span>
+<span class="nx">alert</span><span class="p">(</span><span class="o">~-</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 0, -(-1+1)</span>
+</code></pre>
+</div>
+
+<p>이를 이용하면 이렇게 사용할 수 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'Widget'</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">~</span><span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'Widget'</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s1">'Found it!'</span><span class="p">);</span> <span class="c1">// 잘 동작한다.</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>요즘 자바스크립트에는 <code class="highlighter-rouge">.includes</code>가 존재하기 때문에 예전 코드에서나 볼 수 있는 트릭이긴 하다.</p>
+
+<h2 id="includes-startswith-endswith">includes, startsWith, endsWith</h2>
+
+<p><code class="highlighter-rouge">str.includes(substr, pos)</code>는 포함여부에 따라 반환된다. 두번째 인자는 검색을 시작할 위치를 이야기한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'Widget'</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">'id'</span><span class="p">));</span> <span class="c1">// true</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'Widget'</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span> <span class="c1">// false,</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">str.startsWith</code> 및 <code class="highlighter-rouge">str.endsWith</code>는 다음과 같다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'Widget'</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s1">'Wid'</span><span class="p">));</span> <span class="c1">// true, "Widget" 은 "Wid"로 시작한다.</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'Widget'</span><span class="p">.</span><span class="nx">endsWith</span><span class="p">(</span><span class="s1">'get'</span><span class="p">));</span> <span class="c1">// true, "Widget" 은 "get"으로 끝난다.</span>
+</code></pre>
+</div>
+
+<h2 id="부분-문자열-얻기">부분 문자열 얻기</h2>
+
+<p>자바스크립트는 부분 문자열을 얻는 3가지 방법을 제공한다.</p>
+
+<h3 id="strslicestart-end">str.slice(start[, end])</h3>
+
+<p>start부터 end까지의 문자를 반환한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'stringify'</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span> <span class="c1">// 'strin'</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span> <span class="c1">// 's'</span>
+</code></pre>
+</div>
+
+<p>두번째 인수가 없으면 문자열 끝가지 반환한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'stringify'</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span> <span class="c1">// 'ringify'</span>
+</code></pre>
+</div>
+
+<p>음수값도 가능하다. 음수값은 끝에서 부터 시작한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'stringify'</span><span class="p">;</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span> <span class="c1">// 'gif'</span>
+</code></pre>
+</div>
+
+<h3 id="strsubstringstart--end">str.substring(start [, end])</h3>
+
+<p>start와 end사이의 문자열을 반환한다. <code class="highlighter-rouge">slice</code>와 거의 동일하지만 end보다 start가 클 수 있다는 점이 다르다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'stringify'</span><span class="p">;</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span> <span class="c1">// "ring"</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">// "ring"</span>
+
+<span class="c1">// slice는</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span> <span class="c1">// "ring"</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">// ""</span>
+</code></pre>
+</div>
+
+<p>슬라이스와는 달리 음수는 작동하지 않는다.</p>
+
+<h3 id="strsubstrstart--length">str.substr(start, [, length])</h3>
+
+<p>length만큼 start부터 반환한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'stringify'</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">));</span> <span class="c1">// 'ring'</span>
+</code></pre>
+</div>
+
+<p>첫번째 인수는 음수 일 수 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">'stringify'</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">// 'gi'</span>
+</code></pre>
+</div>
+
+<p>만약 셋 중에 하나만을 알아야겠다면 <code class="highlighter-rouge">slice</code>를 추천한다. 더 유연하고, 음수를 허용하며, 짧다.</p>
+
+<h2 id="문자열-비교">문자열 비교</h2>
+
+<p>이전에도 이야기 했다시피 문자열은 알파벳 순서대로 비교된다.</p>
+
+<p>하지만 이상한 점이 몇가지 있는데,</p>
+
+<ol>
+  <li>소문자는 항상 대문자보다 크다.</li>
+  <li>분음부호가 있는 문자는 순서가 없다.</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'a'</span> <span class="o">&gt;</span> <span class="s1">'Z'</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'Österreich'</span> <span class="o">&gt;</span> <span class="s1">'Zealand'</span><span class="p">);</span> <span class="c1">// true</span>
+</code></pre>
+</div>
+
+<h3 id="strcodepointatpos">str.codePointAt(pos)</h3>
+
+<p>위치에 있는 문자의 코드를 반환한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'z'</span><span class="p">.</span><span class="nx">codePointAt</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span> <span class="c1">// 122</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'Z'</span><span class="p">.</span><span class="nx">codePointAt</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span> <span class="c1">// 90</span>
+</code></pre>
+</div>
+
+<h3 id="strfromcodepointcode">str.fromCodePoint(code)</h3>
+
+<p>코드로 문자를 만든다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCodePoint</span><span class="p">(</span><span class="mi">90</span><span class="p">));</span> <span class="c1">// Z</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">\u</code>와 16진수 코드를 사용하여 코드별로 유니코드문자를 만들 수 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'\u005a'</span><span class="p">);</span> <span class="c1">// Z</span>
+</code></pre>
+</div>
+
+<p>코드로 문자를 만드는 작업을 해보자.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">65</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">220</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">str</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCodePoint</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+<span class="c1">// ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~</span>
+<span class="c1">// ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜ</span>
+</code></pre>
+</div>
+
+<p>어떤게 더 큰 값인지 알 수 있다. 분음이 붙은 문자는 알파벳과 다른 값을 갖는다.</p>
+
+<h3 id="정확한-비교">정확한 비교</h3>
+
+<p>문자열을 비교하는 올바른 알고리즘은 알파벳이 언어마다 다르기 때문에 생각보다 복잡한다.</p>
+
+<p>따라서 비교할 언어를 알아야한다. 운이 좋게도 모든 최신 브라우저(IE10-는 intl.js를 추가하여 사용하자)는 국제표준을 지원한다.</p>
+
+<p><code class="highlighter-rouge">str.localeCompare(str2)</code>는 언어 규칙에 따라 str보다 str2이 큰지 작은지를 반환한다.</p>
+
+<ul>
+  <li>str보다 작은경우 음수</li>
+  <li>str보다 큰경우 양수</li>
+  <li>동등하면 0</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'Österreich'</span><span class="p">.</span><span class="nx">localeCompare</span><span class="p">(</span><span class="s1">'Zealand'</span><span class="p">));</span> <span class="c1">// -1</span>
+</code></pre>
+</div>
+
+<h2 id="내부-유니-코드">내부, 유니 코드</h2>
+
+<h3 id="대리-쌍">대리 쌍</h3>
+
+<p>자주 사용하는 모든 문자에는 2바이트 코드가 있다. 대부분의 유럽 언어, 숫자 및 대부부ㅜㄴ의 상형 문자로 된 문자는 2바이트로 표시된다.</p>
+
+<p>그러나 2바이트는 65536 조합만 허용하며 모든 기호에는 충분하지 않다. 따라서 드문 심볼은 <code class="highlighter-rouge">대리 쌍</code>이라는 2바이트 문자 쌍으로 인코딩된다.</p>
+
+<p>기술적으로 대리쌍은 아래처럼 감지할 수 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'𝒳'</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">));</span> <span class="c1">// d835,  0xd800 에서 0xdbff 사이</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'𝒳'</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">));</span> <span class="c1">// dcb3,  0xdc00 에서 0xdfff 사이</span>
+</code></pre>
+</div>
+
+<h3 id="분음-부호-및-정규화">분음 부호 및 정규화</h3>
+
+<p>많은 언어에는 위 또는 아래에 표시가 있는 기본 문자로 구성된 기호가 있다.</p>
+
+<p>예를 들면 <code class="highlighter-rouge">a</code>는 다음처럼 될 수 있다. <code class="highlighter-rouge">àáâäãåā</code>. 문자 뒤에 특수 마크 기호를 사용하면 만들 수 있다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'S\u0307'</span><span class="p">);</span> <span class="c1">// Ṡ, S + dot upper</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'S\u0307\u0323'</span><span class="p">);</span> <span class="c1">// Ṩ, S + dot upper + dot below</span>
+</code></pre>
+</div>
+
+<p>이 확장성 때문에 재밌는 일이 발생한다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">s1</span> <span class="o">=</span> <span class="s1">'S\u0307\u0323'</span><span class="p">;</span> <span class="c1">// Ṩ, S + dot above + dot below</span>
+<span class="kd">let</span> <span class="nx">s2</span> <span class="o">=</span> <span class="s1">'S\u0323\u0307'</span><span class="p">;</span> <span class="c1">// Ṩ, S + dot below + dot above</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="err">`</span><span class="nx">s1</span><span class="err">:</span> <span class="nx">$</span><span class="p">{</span><span class="nx">s1</span><span class="p">},</span> <span class="nx">s2</span><span class="err">:</span> <span class="nx">$</span><span class="p">{</span><span class="nx">s2</span><span class="p">}</span><span class="err">`</span><span class="p">);</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">s1</span> <span class="o">==</span> <span class="nx">s2</span><span class="p">);</span> <span class="c1">// false</span>
+</code></pre>
+</div>
+
+<p>정규화시켜 비교하면 된다.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="s1">'S\u0307\u0323'</span><span class="p">.</span><span class="nx">normalize</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'S\u0323\u0307'</span><span class="p">.</span><span class="nx">normalize</span><span class="p">());</span> <span class="c1">// true</span>
+</code></pre>
+</div>
+
+<h1 id="숙제">숙제</h1>
+
+<h2 id="첫문자를-대문자로-바꾸는-함수를-작성해보자">첫문자를 대문자로 바꾸는 함수를 작성해보자</h2>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">ucFirst</span><span class="p">(</span><span class="s1">'john'</span><span class="p">)</span> <span class="o">==</span> <span class="s1">'John'</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<details>
+  <summary>답</summary>
+
+  <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">ucFirst</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">str</span><span class="p">)</span> <span class="k">return</span> <span class="nx">str</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nx">str</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">ucFirst</span><span class="p">(</span><span class="s1">'john'</span><span class="p">));</span> <span class="c1">// John</span>
+</code></pre>
+  </div>
+
+</details>
+
+<h2 id="스팸-확인">스팸 확인</h2>
+
+<p><code class="highlighter-rouge">viagra</code>, <code class="highlighter-rouge">xxx</code>를 포함하는 문장을 확인하는 함수를 작성해보자.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">checkSpam</span><span class="p">(</span><span class="s1">'buy ViAgRA now'</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">checkSpam</span><span class="p">(</span><span class="s1">'free xxxxx'</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">checkSpam</span><span class="p">(</span><span class="s1">'innocent rabbit'</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<details>
+  <summary>답</summary>
+
+  <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">checkSpam</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">lowerStr</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="nx">lowerStr</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">'viagra'</span><span class="p">)</span> <span class="o">||</span> <span class="nx">lowerStr</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">'xxx'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">checkSpam</span><span class="p">(</span><span class="s1">'buy ViAgRA now'</span><span class="p">));</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">checkSpam</span><span class="p">(</span><span class="s1">'free xxxxx'</span><span class="p">));</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">checkSpam</span><span class="p">(</span><span class="s1">'innocent rabbit'</span><span class="p">));</span>
+</code></pre>
+  </div>
+
+</details>
+
+<h2 id="텍스트-자르기">텍스트 자르기</h2>
+
+<p>str의 길이를 확인하고 maxlength를 초과할 경우 줄임표 문자로 바꾸는 함수를 만들어보자.</p>
+
+<p><code class="highlighter-rouge">truncate(str, maxlength)</code></p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">truncate</span><span class="p">(</span>
+  <span class="s2">"What I'd like to tell on this topic is:"</span><span class="p">,</span>
+  <span class="mi">20</span>
+<span class="p">)</span> <span class="o">=</span> <span class="s2">"What I'd like to te…"</span><span class="p">;</span>
+
+<span class="nx">truncate</span><span class="p">(</span><span class="s1">'Hi everyone!'</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">=</span> <span class="s1">'Hi everyone!'</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">checkSpam</span><span class="p">(</span><span class="s1">'buy ViAgRA now'</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">checkSpam</span><span class="p">(</span><span class="s1">'free xxxxx'</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">checkSpam</span><span class="p">(</span><span class="s1">'innocent rabbit'</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<details>
+  <summary>답</summary>
+
+  <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">truncate</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">maxlength</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">maxlength</span> <span class="p">?</span> <span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">maxlength</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'…'</span> <span class="p">:</span> <span class="nx">str</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+
+  <p>말줌임 문자는 점 세개가 아닌 하나의 유니코드 문자이다.</p>
+
+</details>
+
+<h2 id="돈-추출">돈 추출</h2>
+
+<p><code class="highlighter-rouge">$120</code> 에서 120을 추출하자</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="nx">extractCurrencyValue</span><span class="p">(</span><span class="s1">'$120'</span><span class="p">)</span> <span class="o">===</span> <span class="mi">120</span><span class="p">);</span> <span class="c1">// true</span>
+</code></pre>
+</div>
+
+<details>
+  <summary>답</summary>
+
+  <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">extractCurrencyValue</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">+</span><span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+  </div>
+
+</details>
+
+    <br />
+    <br />
+  </div>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  
+
+</article>
+
+<hr class="dingbat" />
+
+<div class="share">
+  <h2>Share this post</h2>
+  <div class="share-body">
+    <a href="http://twitter.com/share?text=[모던자바스크립트] 31. 문자열&amp;url=http://localhost:4000/devlog/2019/12/09/modern-javascript-31/"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="icon-twitter">
+      </span>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/devlog/2019/12/09/modern-javascript-31/"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="icon-facebook">
+      </span>
+    </a>
+  </div>
+</div>
+<br />
+
+
+
+
+
+  <aside class="author" role="complementary">
+    <div class="author">
+  <h2 class="page-title hr">
+    About
+  </h2>
+<div class="author-body">
+  
+    
+  
+
+  
+
+  <img
+    src="/assets/img/me.jpeg"
+    class="me"
+    alt="aiden min"
+    srcset="/assets/img/me.jpeg 1x,/assets/img/me.jpeg 2x"
+    
+  />
+
+
+  
+  <div class="author-body-description">
+    <p>세상에서 가장 게으르기 위해 가장 부지런한 타입.
+글쓰는 것과 디자인, 개발을 좋아한다. 좋은게 좋은거고, 예쁜게 좋은거고, 노는게 좋은거라고 생각한다. 좋아하는게 많은 편.</p>
+
+  </div>
+</div>
+</div>
+
+  </aside>
+
+
+
+
+
+<aside class="related" role="complementary">
+  <h2 class="hr">Related Posts</h2>
+
+  <ul class="related-posts">
+    
+      
+      
+      
+        
+        
+          
+
+
+<li class="h4">
+  <a href="/devlog/2020/09/09/react-hooks/" data-flip="title">
+    <span>React Hooks를 알아보자</span>
+  </a>
+  <small><time datetime="2020-09-09T00:00:00+09:00">
+    09 Sep 2020
+  </time></small>
+</li>
+
+        
+      
+        
+          
+          
+        
+        
+          
+
+
+<li class="h4">
+  <a href="/devlog/2019/12/05/modern-javascript-30-copy/" data-flip="title">
+    <span>[모던자바스크립트] 30. 원시형의 메소드</span>
+  </a>
+  <small><time datetime="2019-12-05T00:00:00+09:00">
+    05 Dec 2019
+  </time></small>
+</li>
+
+        
+      
+        
+        
+          
+
+
+<li class="h4">
+  <a href="/devlog/2019/12/03/modern-javascript-29/" data-flip="title">
+    <span>[모던자바스크립트] 29. 원시형의 메소드</span>
+  </a>
+  <small><time datetime="2019-12-03T00:00:00+09:00">
+    03 Dec 2019
+  </time></small>
+</li>
+
+        
+      
+    
+  </ul>
+</aside>
+
+
+
+      
+        <aside class="comments" role="complementary">
+  <h2>Comments</h2>
+  <hr/>
+
+  <div id="disqus_thread"></div>
+
+  <script>
+    !function(s,i){function e(e){var t=s.pageYOffset||i.body.scrollTop;s.DISQUS&&!s._disqusThis&&!s._disqusFirst&&t+s.innerHeight>=s._disqusThreadOffsetTop&&(s._disqusThis=!0,s.DISQUS.reset({reload:!0,config:d}))}var d=function(){this.page.title="[모던자바스크립트] 31. 문자열",this.page.identifier="/devlog/2019/12/09/modern-javascript-31",this.page.url="http://localhost:4000/devlog/2019/12/09/modern-javascript-31/"};s._disqusFirst=void 0===s._disqusFirst||s._disqusFirst,s._disqusLoading=void 0!==s._disqusLoading&&s._disqusLoading,s._disqusThis=!1,s._disqusThreadOffsetTop=i.getElementById("disqus_thread").offsetTop,s._disqusLoading?s._disqusFirst=!1:(s._disqusLoading=!0,loadJSDeferred("//isme2n.disqus.com/embed.js"),s.addEventListener?s.addEventListener("scroll",e,{passive:!0}):s.attachEvent?s.attachEvent("onscroll",e):s.onscroll=e)}(window,document);
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</aside>
+
+      
+
+      <footer>
+  <hr/>
+  
+    <p>© 2017. by isme2n</p>
+
+  
+  <p>
+    <code>Powered by <a href="https://isme2n.github.io/">aiden</a></code>
+  </p>
+</footer>
+
+    </main>
+    <div class="right-side">
+  <div class="ad-first">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- 블로그-상단-모바일 -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:100%;"
+         data-ad-client="ca-pub-9134477021095729"
+         data-ad-slot="6559875097"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+<br/>
+<br/>
+  <div class="ad-second">
+    <!-- 블로그-스카이스크래퍼 -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;max-width:320px;width:100%;height:600px"
+         data-ad-client="ca-pub-9134477021095729"
+         data-ad-slot="6826803092"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+</div>
+
+  </div>
+  <div id="_yDrawer">
+  <div id="_sidebar" class="sidebar">
+    <div class="sidebar-bg" style="background-color:#4f86aa;background-image:url(/assets/img/nap.jpg)"></div>
+    <header class="sidebar-sticky" role="banner">
+      <br/>
+      <div class="sidebar-about">
+        <h1><a id="_title" href="/">Aiden</a></h1>
+        <p>가장 게으르기위해 가장 부지런한 개발자</p>
+
+      </div>
+
+      <br/>
+      <br/>
+      <nav class="sidebar-nav heading" role="navigation">
+        <span class="sr-only">Navigation:</span>
+<ul>
+  
+
+  
+
+  
+  
+  
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-1"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/essay/">Essay</a>
+       
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/essay-essay/">Essay</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/essay-startup/">Startup</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-2"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/tip/">Tip</a>
+       
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/tip-japan/">Japan</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/tip-tip/">Tip</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-3"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/video/">Video</a>
+       <label class="folder" for="list-item-3">▾</label>
+    </div>
+     <ul class="list-body">
+       
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/video-react/">React</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-4"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/review/">Review</a>
+       <label class="folder" for="list-item-4">▾</label>
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-book/">Book</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-event/">Event</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-things/">Things</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-movie/">Movie</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-music/">Music</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/review-food/">Food</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-5"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/shopping/">Shopping</a>
+       
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/shopping-shopping/">Shopping</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-6"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/doc/">Documents</a>
+       <label class="folder" for="list-item-6">▾</label>
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/doc-48wedding/">48wedding</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/doc-boilerplate/">Boilerplate</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/doc-secreport/">Secreport</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-7"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/category/devlog/">Devlog</a>
+       <label class="folder" for="list-item-7">▾</label>
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-web/">Web</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-javascript/">JavaScript</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-ml/">ML</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-node/">Node.js</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-react/">React</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-data/">Data</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-git/">Git</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-infra/">Infra</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-vue/">Vue</a>
+             </li>
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-linux/">Linux</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-meteor/">Meteor</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-aws/">AWS</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-jekyll/">Jekyll</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-mongo/">MongoDB</a>
+             </li>
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/tag/devlog-algorithm/">Algorithm</a>
+             </li>
+           
+         
+     </ul>
+    </li>
+
+  
+  
+    <li>
+      <input type="checkbox" id="list-item-8"/>
+      <div  class="list-wrapper">
+      <a class="sidebar-nav-item" href="/about/">About</a>
+       
+    </div>
+     <ul class="list-body">
+       
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+             <li>
+               <a class="sidebar-nav-subitem" href="/category/artwork/">Artwork</a>
+             </li>
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+           
+         
+     </ul>
+    </li>
+
+  
+</ul>
+
+      </nav>
+    <br/>
+    <br/>
+      <div class="sidebar-box">
+        
+          
+  
+
+  
+
+  <img
+    src="/assets/img/me.jpeg"
+    class="me"
+    alt="aiden min"
+    srcset="/assets/img/me.jpeg 1x,/assets/img/me.jpeg 2x"
+    
+  />
+
+
+        
+      </div>
+      <p>게으르기 때문에 게발자. 글쓰는 걸 좋아하고, 디자인과 개발을 좋아한다.</p>
+
+      
+      
+        <div class="sidebar-social">
+          <span class="sr-only">Social:</span>
+<ul>
+  
+    
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="https://facebook.com/zooqzqz">
+    <span class="icon-facebook" title="Facebook"></span>
+    <span class="sr-only">Facebook</span>
+  </a>
+</li>
+
+  
+    
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="https://github.com/isme2n">
+    <span class="icon-github" title="GitHub"></span>
+    <span class="sr-only">GitHub</span>
+  </a>
+</li>
+
+  
+    
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="mailto:zooqzqz@gmail.com">
+    <span class="icon-mail" title="Email"></span>
+    <span class="sr-only">Email</span>
+  </a>
+</li>
+
+  
+    
+
+
+
+
+
+
+
+
+
+<li>
+  <a href="https://isme2n.github.io/feed.xml">
+    <span class="icon-rss2" title="RSS"></span>
+    <span class="sr-only">RSS</span>
+  </a>
+</li>
+
+  
+</ul>
+
+        </div>
+      
+    </header>
+  </div>
+</div>
+
+</div>
+
+<!-- =============== -->
+<!-- SCRIPTS         -->
+<!-- =============== -->
+
+<script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-92346434-1', 'auto');
+  ga('send', 'pageview');
+  loadJSDeferred('https://www.google-analytics.com/analytics.js');
+</script>
+
+
+
+
+
+<!--[if gt IE 8]><!---->
+<script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+<script>
+  WebFont.load({
+    
+    google: {
+      families: 'Lato'.split('|')
+    },
+    
+
+    custom: {
+      families: ['icomoon'],
+      urls: ['/assets/icomoon/style.css']
+    }
+  });
+</script>
+<!--<![endif]-->
+
+
+  <!--[if gt IE 9]><!---->
+  
+  <script>loadJSDeferred('/assets/js/hydejack.js?v=6.4.0');</script>
+
+  
+  <!--<![endif]-->
+
+
+
+</body>
+
+</html>
