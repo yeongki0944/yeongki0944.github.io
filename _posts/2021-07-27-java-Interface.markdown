@@ -6,7 +6,7 @@ categories: programming-language
 tags: java
 ---
 ## Class Diagram
-![Class Diagram](https://i.imgur.com/uCYnaal.jpg)
+![](https://i.imgur.com/uCYnaal)
 
 
 ## Interface : IBookManager
