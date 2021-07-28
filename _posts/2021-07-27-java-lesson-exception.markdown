@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "[Java] 강의 요약"
-subtitle:   "강의요약"
+title:  "[Java] 강의 인터페이스 / Exception"
+subtitle:   "인터페이스 / Exception"
 categories: programming-language
 tags: java
 ---
@@ -274,3 +274,111 @@ public class ExceptionTest {
 	}
 }
 ```
+
+
+## Exception
+
+```java
+package Exception;
+
+public class ExceptionTest {
+	
+	public static void main(String[] args) {
+		Controller controller = new Controller();
+		controller.m();
+	}
+}
+
+
+class Controller{
+	public void m() {
+		Service service = new Service();
+		service.m();
+	}
+}
+
+class Service{
+	public void m() {
+		Dao dao = new Dao();
+		dao.m();
+	}
+}
+
+class Dao{
+	public void m() {
+		
+	}
+}
+```
+
+- Dao 클래스의 m()메소드에 `throws IOException` 추가 할경우	- Service에서 처리를 해야 된다.
+		1. try-catch
+		2. throws
+	- 
+
+```java
+package Exception;
+
+import java.io.IOException;
+
+public class ExceptionTest {
+	
+	public static void main(String[] args) throws IOException {
+		Controller controller = new Controller();
+		controller.m();
+	}
+}
+
+
+class Controller{
+	public void m() throws IOException{
+		Service service = new Service();
+		service.m();
+	}
+}
+
+class Service{
+	public void m () throws IOException{
+		Dao dao = new Dao();
+		dao.m();
+	}
+}
+
+class Dao{
+	public void m() throws IOException {
+		
+	}
+}
+```
+
+## Runtime Exception
+
+- 컴파일러가 체크해서 알려주지 않는다.
+
+```java
+package Exception;
+
+public class ExceptionTest3 {
+	
+	public static void main(String[] args)  {
+		ControllerRunEx ex = new ControllerRunEx();
+		ex.m();
+		
+	}
+}
+
+class ControllerRunEx{
+	public void m() {
+		String s = null;
+		s.length();
+	}
+}
+```
+
+`error`
+Exception in thread "main" java.lang.NullPointerException
+  at Exception.ControllerRunEx.m(ExceptionTest3.java:15)
+  at Exception.ExceptionTest3.main(ExceptionTest3.java:7)
+
+
+
