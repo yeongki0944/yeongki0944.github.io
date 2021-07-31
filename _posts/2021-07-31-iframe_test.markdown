@@ -7,6 +7,7 @@ tags: java
 ---
 
 
-<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.w3schools.com/code/tryit.asp?filename=GT15AFAG5D3I" style="border: 1px solid black">
 
-</iframe>
+## trinket iframe test
+
+<iframe src="https://trinket.io/embed/html/40b467209a" width="100%" height="600" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
