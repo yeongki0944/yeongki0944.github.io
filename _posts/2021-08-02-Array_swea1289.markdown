@@ -1,0 +1,180 @@
+---
+layout: post
+title:  "[Array] SWEA 1298"
+subtitle:   "[Array] SWEA 1298"
+categories: algorithm-array
+tags: java
+---
+
+## SWEA - 1298 원재의 메모리 복구하기 
+
+[문제 출처](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV19AcoKI9sCFAZN&)
+
+
+`배열의 최상위 비트와 index 개념 혼합해서 생각 금지`
+`BufferedReader = new BufferedReader( new InputStreamReader(System.in) )`
+`System.setIn( new FileInputStream("path") )`
+
+
+
+`나의 풀이` 
+- 배열의 최상위 비트와 index 순서를 혼동 
+
+```java
+
+package algo.array;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Scanner;
+
+// https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV19AcoKI9sCFAZN&
+public class swea_1289 {
+	static int T, COUNT;
+	static int[] ans, cur;
+	static String temp;
+	public static void main(String[] args) throws Exception {
+		System.setIn(new FileInputStream("input.txt"));
+		Scanner sc = new Scanner(System.in);
+		T = Integer.parseInt(sc.nextLine());
+		for (int i = 0; i < T; i++) {
+			// 테스트케이스 for문
+				//테케별 입력 받는 부분
+				temp = sc.nextLine();
+				ans = new int[temp.length()];
+				cur = new int[temp.length()];
+				COUNT = 0;
+				for (int j = 0; j < temp.length(); j++) {
+					ans[j] = temp.charAt(j) - '0';
+					cur[j] = 0;
+				}
+				
+				//System.out.println(Arrays.toString(ans));
+				
+				// 각 케이스별 문제 해결 
+				// ans, cur array 생성 후 최상위 array index부터 ans, cur을 비교해가며, 서로 다를 경우 count하고 cur변경하면서 체크
+				for(int j = ans.length-1; j>=0; j--) {
+					if(ans[j] == cur[j]) continue;
+					else {
+						COUNT++;
+						for (int k = j; k >=0; k--) {
+							cur[k] = ans[j];
+						}
+					}
+					System.out.println(Arrays.toString(cur));
+				}
+				
+				// 정답출력 
+				System.out.println("#" + (i+1) + " " +COUNT);
+
+			
+		}		
+		 
+	}
+}
+
+
+```
+
+
+
+`sol1`
+
+```java
+package algo.array;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+// https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV19AcoKI9sCFAZN&
+public class swea_1298_sol {
+	
+	static int T, COUNT;
+	static char[] input, memory;
+	
+	public static void main(String[] args) throws Exception{
+		System.setIn(new FileInputStream("input.txt"));
+		BufferedReader br = new BufferedReader( new InputStreamReader(System.in));
+		
+		T = Integer.parseInt(br.readLine());
+		
+		
+		for(int t = 1; t <= T; t++) {
+			COUNT = 0;
+			input = br.readLine().toCharArray();
+			memory = new char[input.length];
+			for(int i = 0 ; i < input.length; i++) {
+				memory[i] = '0';
+			}
+			
+			
+			for (int i = 0; i < input.length; i++) {
+				if( memory[i] != input[i] ) {
+					COUNT++;
+					for (int j = i; j < input.length; j++) {
+						memory[j] = input[i];
+					}
+				}
+			}
+			
+			
+			
+			System.out.println("#" + t + " " +COUNT);
+		}
+		
+	}
+	
+}
+```
+
+
+`sol2 배열 하나만 사용`
+
+```java
+package algo.array;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+// https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV19AcoKI9sCFAZN&
+
+// 배열 하나만 사용하기
+
+// flag변수를 하나 생성해서 비교하면서 0, 1을 바꾸면서 
+public class swea_1298_sol2 {
+	
+	static int T, COUNT;
+	static char[] input;
+	static char FLAG_CURRENT;
+	public static void main(String[] args) throws Exception{
+		System.setIn(new FileInputStream("input.txt"));
+		BufferedReader br = new BufferedReader( new InputStreamReader(System.in));
+		
+		T = Integer.parseInt(br.readLine());
+		
+		
+		for(int t = 1; t <= T; t++) {
+			COUNT = 0;
+			input = br.readLine().toCharArray();
+			FLAG_CURRENT = '0';
+		
+			for (int i = 0; i < input.length; i++) {
+				if(input[i] != FLAG_CURRENT) {
+					COUNT++;
+					FLAG_CURRENT = input[i];
+				}
+			}
+			
+			
+			
+			System.out.println("#" + t + " " +COUNT);
+		}
+		
+	}
+	
+}
+
+```

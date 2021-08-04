@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "SWEA - 1208"
+subtitle:   "SWEA - 1208"
+categories: algorithm
+tags: java
+---
+
+## 1208. [S/W 문제해결 기본] 1일차 - Flatten D3
+
+[출처](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV139KOaABgCFAYh&)
+
