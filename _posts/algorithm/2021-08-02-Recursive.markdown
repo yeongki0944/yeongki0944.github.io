@@ -2,8 +2,8 @@
 layout: post
 title:  "Recursive 기초"
 subtitle:   "Recursive 기초"
-categories: algorithm-recursive
-tags: java
+categories: algorithm
+tags: recursive
 ---
 
 

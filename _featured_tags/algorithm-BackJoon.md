@@ -1,8 +1,9 @@
 ---
 layout: tag-blog
-title: Recursive
-slug: recursive
+title: BackJoon
+slug: backjoon
 category: algorithm
 menu: false
-order: 3
+order: 4
+
 ---

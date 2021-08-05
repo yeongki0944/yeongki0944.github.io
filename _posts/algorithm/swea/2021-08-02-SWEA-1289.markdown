@@ -2,8 +2,8 @@
 layout: post
 title:  "[Array] SWEA 1298"
 subtitle:   "[Array] SWEA 1298"
-categories: algorithm-array
-tags: java
+categories: algorithm
+tags: swea
 ---
 
 ## SWEA - 1298 원재의 메모리 복구하기 

@@ -1,8 +1,8 @@
 ---
 layout: tag-blog
-title: Recursive
-slug: recursive
+title: Summary
+slug: summary
 category: algorithm
 menu: false
-order: 3
+order: 1
 ---

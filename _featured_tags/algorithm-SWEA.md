@@ -1,8 +1,8 @@
 ---
 layout: tag-blog
-title: Recursive
-slug: recursive
+title: SWEA
+slug: swea
 category: algorithm
 menu: false
-order: 3
+order: 5
 ---

@@ -1,0 +1,236 @@
+---
+layout: post
+title:  "SWEA - 1954"
+subtitle:   "SWEA - 1954"
+categories: algorithm
+tags: swea
+---
+
+## 1954. 달팽이 숫자 D2
+
+[출처](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PobmqAPoDFAUq&categoryId=AV5PobmqAPoDFAUq&categoryType=CODE&&&)
+
+```
+Method1. dy, dx로 이동 방향 순서대로 이동
+
+
+Method2. 배열에서 규칙을 찾기
+```
+
+
+## Point
+ 
+```
+1. 소요시간 : 1시간
+ 	문제 분석부터 구현까지 20분정도 소요 되었음
+ 
+	오래 걸린 원인 - 코딩 중 문자 하나를 잘못 적음 
+		ny = cy + dy[D];
+ 		nx = cx + dy[D];   <-- 요기를 dx 로 해야 되는데 dy로 해서 40분동안 찾았음.
+
+
+2. dy, dx / 우선순위 / direction / direction이 변하는 지점 / 경계 
+```
+
+
+## `Method1` dy, dx로 이동 방향 순서대로 이동
+
+
+### 나의 풀이
+
+```java
+public class SWEA_1954 {
+	static int T, N, D, cy, cx, ny, nx;
+	static int[][] map;
+	
+	static int[] dy = { 0, 1,  0, -1};
+	static int[] dx = { 1, 0, -1,  0};
+	
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
+		
+		// 테스트 케이스 갯수 입력 받기
+		T = Integer.parseInt(br.readLine());
+		
+		for (int t = 1; t <= T; t++) {
+			
+			N = Integer.parseInt(br.readLine());
+			
+			if(N == 1) {
+				System.out.println("#"+t);
+				System.out.println(1);
+				continue;
+			}
+			
+			map = new int[N][N];
+			D = 0; // 초기 방향 설정
+			cy = 0;
+			cx = 0;
+			// N*N번 for문 돌기
+			for (int i = 1; i <= N*N; i++) {
+				map[cy][cx] = i;
+				
+				ny = cy + dy[D];
+				nx = cx + dx[D];
+				if( ny < 0 || nx < 0 || ny >= N  || nx >= N || map[ny][nx] != 0) {
+					D = (D + 1) % 4;
+				}
+				cy = cy + dy[D];
+				cx = cx + dx[D];
+				
+			}
+			// 경계를 넘어가거나 변경된 부분을 만나면 방향 변경 
+			
+			
+			System.out.println("#"+t);
+			
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					System.out.print(map[i][j] + " ");
+				}
+				System.out.println();
+			}
+		}
+		
+	}
+}
+```
+
+### `Solution`
+
+```java
+public class Solution {
+	static int T, N;
+	static int[][] snail;
+	
+	static int[] dy = { 0, 1,  0, -1};
+	static int[] dx = { 1, 0, -1,  0};
+	
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
+		
+		// 테스트 케이스 갯수 입력 받기
+		T = Integer.parseInt(br.readLine());
+		
+		for (int t = 1; t <= T; t++) {
+			
+			N = Integer.parseInt(br.readLine());
+			
+		
+			snail = new int[N][N];
+			int y = 0;
+			int x = 0;
+			int d = 0;	// delta index
+			
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					// 현재 위치 snail[y][x]에 값을 지정
+					snail[y][x] = i*N + j + 1; // 반복문이 하나씩 수행될 때마다 증가하는 값 (i, j로 계산)
+					
+					if( d == 0 ) {			//  우 
+						if( x + dx[d] >= N || snail[y][ x + dx[d] ] != 0) {
+							// 경계를 넘어가거나 다른 숫자가 있을 경우
+							d = 1;
+						}
+					}else if( d == 1 ) {	// 하 
+						if( y + dy[d] >= N || snail[ y + dy[d] ][x] != 0) {
+							// 경계를 넘어가거나 다른 숫자가 있을 경우
+							d = 2;
+						}
+					}else if( d == 2 ) {	// 좌 
+						if( x + dx[d] < 0 || snail[y][ x + dx[d] ] != 0) {
+							// 경계를 넘어가거나 다른 숫자가 있을 경우
+							d = 3;
+						}
+					}else if( d == 3 ) {	// 하 
+						if( y + dy[d] < 0 || snail[ y + dy[d] ][x] != 0) {
+							// 경계를 넘어가거나 다른 숫자가 있을 경우
+							d = 0;
+						}
+					}
+					y += dy[d];
+					x += dx[d];
+				}
+			}
+			
+			System.out.println("#"+t);
+			
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					System.out.print(snail[i][j] + " ");
+				}
+				System.out.println();
+			}
+		}
+		
+	}
+}
+
+```
+
+
+
+## `Method2` 
+
+
+- x,y가 변경되는 규칙을 찾기 
+
+```java
+public class Solution_Method2 {
+	static int T, N;
+	static int[][] snail;
+	
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader( new InputStreamReader( System.in ) );
+		
+		// 테스트 케이스 갯수 입력 받기
+		T = Integer.parseInt(br.readLine());
+		
+		for (int t = 1; t <= T; t++) {
+			
+			N = Integer.parseInt(br.readLine());
+			
+			snail = new int[N][N];
+			
+			int dir = 1;  		// 증가 방향(1), 감소 방향(-1)  -  현재 진행방향에 곱하기 위해서 
+			int count = N;		// 채워가는 칸 수 
+			int num = 1;		// 증가하는 수
+			int y = 0;
+			int x = -1; 
+			
+			while( num  <= N*N ) {
+				
+				
+				// 우 -> 좌 -> 우 -> 좌 ....
+				for (int i = 0; i < count; i++) {
+					x += dir;
+					snail[y][x] = num++;
+				}
+				
+				count--;
+				
+				// 상 -> 하 -> 상 -> 하 ....
+				for (int i = 0; i < count; i++) {
+					y += dir;
+					snail[y][x] = num++;
+				}
+				
+				dir = (dir == 1 ? -1 : 1);
+			}
+			
+			
+			System.out.println("#"+t);
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					System.out.print(snail[i][j] + " ");
+				}
+				System.out.println();
+			}
+		}
+		
+	}
+}
+```
+
+
+

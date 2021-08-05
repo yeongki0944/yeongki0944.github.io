@@ -1,0 +1,19 @@
+---
+layout: post
+title:  "알고리즘 문제풀이 현황"
+subtitle:   "알고리즘 문제풀이 현황"
+categories: algorithm
+tags: summary
+---
+
+
+
+
+
+| 출처    | 번호 | 분류                     | 문제                                                                                                                                                          | 풀이                                        | 1st | 2nd | 3rd | 4th | 5th |
+|---------|------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|-----|-----|-----|-----|-----|
+| 백준    | 1244 | 배열                     | [스위치 켜고 끄기](https://www.acmicpc.net/problem/1244)                                                                                                      | [풀이]({% post_url 2021-08-04-BJ-1244 %})   |     |     |     |     |     |
+| SWEA    | 1204 | 배열, 카운팅             | [최빈수 구하기](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV13zo1KAAACFAYh)                                                | [풀이]({% post_url 2021-08-02-SWEA-1204 %}) |     |     |     |     |     |
+| SWEA-D3 | 1289 | 배열, Boolean, BitSet    | [원재의 메모리 복구하기](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV19AcoKI9sCFAZN&)                                      | [풀이]({% post_url 2021-08-02-SWEA-1289 %}) |     |     |     |     |     |
+| SWEA-D3 | 1208 | 배열[ ] [ ]              | [Flatten](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV139KOaABgCFAYh&)                                                     | [풀이]({% post_url 2021-08-03-SWEA-1208 %}) |     |     |     |     |     |
+| SWEA-D2 | 1954 | 배열[ ] [ ], dy dx, 패턴 | [달팽이 숫자](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PobmqAPoDFAUq&categoryId=AV5PobmqAPoDFAUq&categoryType=CODE&&&) | [풀이]({% post_url 2021-08-04-SWEA-1954 %}) |     |     |     |     |     |

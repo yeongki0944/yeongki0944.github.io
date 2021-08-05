@@ -23,6 +23,9 @@
 }
 
 
+
+
+
 .only-mobile {
   display:block;
   width:98%;
@@ -196,6 +199,10 @@
   margin-bottom: 18px;
 }
 
+.markdown-body tbody{
+  font-size: 5px;
+}
+
 .list-wrapper {
   display: flex;
 }
@@ -253,3 +260,4 @@ input[type="checkbox"]:checked ~ ul{
   width: 100%;
   height: 100%;
 }
+

@@ -2,8 +2,8 @@
 layout: post
 title:  "[Array] SWEA 1204"
 subtitle:   "[Array] SWEA 1204"
-categories: algorithm-array
-tags: java
+categories: algorithm
+tags: swea
 ---
 
 ## SWEA - 1204 최빈수 구하기
