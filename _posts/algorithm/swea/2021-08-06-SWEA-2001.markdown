@@ -1,0 +1,164 @@
+---
+layout: post
+title:  "SWEA - 2001"
+subtitle:   "SWEA - 2001"
+categories: algorithm
+tags: swea
+---
+
+## 2001. 파리퇴치 D2
+
+[출처](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PzOCKAigDFAUq&categoryId=AV5PzOCKAigDFAUq&categoryType=CODE&problemTitle=2001&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1)
+
+```
+Method1. Array 탐색 & Max값 구하기
+```
+
+
+## Point
+ 
+```
+ 소요 시간 : 24분
+
+ 1. N-M+1 이부분을  N-M-1로 잘못 적은 거 찾은 시간 : 6분
+ 
+
+ Refactoring
+	1. sum을 할때 값을 중복 계산하는 것 개선 
+
+```
+
+
+## `Method1` Stack 사용
+
+
+
+### 나의 풀이
+
+```java
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+
+public class Solution {
+	static int T, N, M, ans;
+	static int[][] map;
+	
+	public static void main(String[] args) throws Exception{
+		System.setIn(new FileInputStream("input-2001.txt"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		T = Integer.parseInt(br.readLine());
+		for (int t = 1; t <= T; t++) {
+			
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			N = Integer.parseInt(st.nextToken());
+			M = Integer.parseInt(st.nextToken());
+			
+			map = new int[N][N];
+			
+			for (int i = 0; i < N; i++) {
+				st = new StringTokenizer(br.readLine());
+				for (int j = 0; j < N; j++) {
+					map[i][j] = Integer.parseInt(st.nextToken());
+				}
+			}
+			
+			// 규칙에 따라 처리 
+			
+			ans = 0;
+			
+			// N-M+1 이부분을  N-M-1로 생각했음.. 
+			
+			for (int i = 0; i < N-M+1; i++) {
+				for (int j = 0; j < N-M+1; j++) {
+					ans = Math.max(ans, getsum(i,j));
+				}
+			}
+			
+			//결과 출력 
+			System.out.println("#"+t + " " + ans);
+			
+		}
+	}
+	
+	static int getsum(int sy, int sx) {
+		int sum = 0;
+		for (int i = sy; i < sy+M; i++) {
+			for (int j = sx; j < sx+M; j++) {
+				sum += map[i][j];
+			}
+		}
+		return sum;
+	}
+	
+}
+```
+
+## 수업 Solution 1. Basic
+
+```java
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+public class SW_파리퇴치_2001 {
+	static int T, N, M, max;
+	static int[][] map;
+	
+	public static void main(String[] args) throws Exception{
+		System.setIn(new FileInputStream("input-2001.txt"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		T = Integer.parseInt(br.readLine());
+		
+		for (int t = 1; t <= T; t++) {
+			
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			N = Integer.parseInt(st.nextToken());
+			M = Integer.parseInt(st.nextToken());
+			
+			map = new int[N][N];
+			
+			for (int i = 0; i < N; i++) {
+				st = new StringTokenizer(br.readLine());
+				for (int j = 0; j < N; j++) {
+					map[i][j] = Integer.parseInt(st.nextToken());
+				}
+			}
+			
+			// 규칙에 따라 처리 
+			
+			max = 0;
+			
+			// N-M+1 이부분을  N-M-1로 생각했음.. 
+			
+			for (int i = 0; i < N-M+1; i++) {
+				for (int j = 0; j < N-M+1; j++) {
+					max = Math.max(max, flyCount(i,j));
+				}
+			}
+			
+			//결과 출력 
+			System.out.println("#"+t + " " + max);
+			
+		}
+	}
+	
+	static int flyCount(int y, int x) {
+		int count = 0;
+		for (int i = y; i < y+M; i++) {
+			for (int j = x; j < x+M; j++) {
+				count += map[i][j];
+			}
+		}
+		return count;
+	}
+	
+}
+```

@@ -1,0 +1,145 @@
+---
+layout: post
+title:  "SWEA - 3499"
+subtitle:   "SWEA - 3499"
+categories: algorithm
+tags: swea
+---
+
+## 3499. 퍼펙트 셔플 D3
+
+[퍼펙트 셔플](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWGsRbk6AQIDFAVW&categoryId=AWGsRbk6AQIDFAVW&categoryType=CODE&problemTitle=3499&orderBy=FIRST_REG_DATETIME&selectCodeLang=ALL&select-1=&pageSize=10&pageIndex=1)
+
+```
+Method1. Array, StringBuilder 사용
+```
+
+
+## Point
+ 
+```
+ 소요 시간 : 18분(08:09 ~ 08:27)
+
+ 1. 문제를 정확히 읽지 않았음 
+	- 셔플을 여러번 하는 줄 알았는데, 한번만 하기 때문에, 짝수, 홀수일때 규칙을 찾아 그 규칙대로 출력했음. 
+
+ 2. 출제자의 의도가 궁금한 문제 
+	- queue를 사용하라는 것인가??
+
+ 3. String[] 배열을 swap 할 때 객체가 다시 생성되고 GC되는 것인지 궁금함.
+
+ 4. StringBuilder vs StringBuffer
+
+	4-1. 내부적 동작방식은 동일
+	4-2. ThreadSafe(X) -  StringBuilder
+  		 ThreadSafe(O) -  StringBuffer
+	4-3. StringBuffer ThreadSafe한 조건을 체크해야 되기 때문에, Builder보단 느리게 동작한다.
+
+ 5. sb.setLength(0); 		// StringBuilder를 초기화하는 가장 빠른 방법 
+```
+
+
+
+
+## 나의 풀이
+
+```java
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+
+public class SWEA_3499 {
+	static int T, N;
+	static String[] deck;
+	
+	public static void main(String[] args) throws Exception {
+		
+		System.setIn(new FileInputStream("input-3499.txt"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		T = Integer.parseInt(br.readLine());
+		
+		for(int t = 1; t <= T; t++) {
+			
+			N = Integer.parseInt(br.readLine());
+			deck = br.readLine().split(" ");
+			
+			//중앙 지점 7 == N / 2 
+			System.out.print("#"+t + " ");
+			int mid = N / 2;
+			int d = 1;
+			if(N%2 == 0) d=0;
+			for (int i = 0; i < mid; i++) {
+				System.out.print(deck[i]+" ");
+				System.out.print(deck[i+mid+d]+" ");
+			}
+			if(N%2 == 1) System.out.println(deck[mid]);
+			else System.out.println();
+			
+		
+		}
+		
+	}
+	
+}
+```
+
+
+
+
+## 수업 Solution
+
+```java
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+public class Solution {
+	static int T, N;
+	static String[] card;
+	static StringBuilder sb = new StringBuilder();
+	
+	public static void main(String[] args) throws Exception {
+		
+		System.setIn(new FileInputStream("input-3499.txt"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		T = Integer.parseInt(br.readLine());
+		
+		for (int t = 1; t <= T; t++) {
+			sb.setLength(0); 		// StringBuilder를 초기화하는 가장 빠른 방법 
+			
+			N = Integer.parseInt(br.readLine());
+			card = new String[N];
+			
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			for (int i = 0; i <N; i++) {
+				card[i] = st.nextToken();
+			}
+			
+			sb.append("#" + t + " ");
+			
+			//홀수 여부
+			boolean isOdd = N%2 == 0 ? false : true;		// 이부분은 내 코드보다 깔끔한 코드 
+			int divdeIdx = isOdd ? N/2 + 1 : N/2;
+			
+			int size = N/2;
+			for (int i = 0; i < size; i++) {
+				sb.append(card[i]).append(" ");
+				sb.append(card[divdeIdx + i]).append(" ");
+			}
+			if(isOdd) sb.append(card[N/2]).append(" ");
+			
+			//trim은 맨뒤 공백문자 제거 해주는 것. 
+			System.out.println(sb.toString().trim());
+		}
+		
+		
+	}
+
+}
+```
+

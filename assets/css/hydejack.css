@@ -192,6 +192,9 @@
   box-shadow: inset 0 -1px 0 #bbb;
 }
 
+.markdown-body table{
+  overflow: "auto";
+}
 
 .markdown-body ul,
 .markdown-body pre {

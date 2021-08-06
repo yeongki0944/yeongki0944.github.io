@@ -1,0 +1,110 @@
+---
+layout: post
+title:  "SWEA - 1218"
+subtitle:   "SWEA - 1218"
+categories: algorithm
+tags: swea
+---
+
+## 1218. 괄호 짝짓기 D4
+
+[출처](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14eWb6AAkCFAYD&)
+
+```
+Method1. Stack 사용
+```
+
+
+## Point
+ 
+```
+  총 풀이 시간 : 20분
+
+1. 여는 괄호 / 닫는 괄호 나눠서 생각
+	여는 괄호는 스택에 저장 / 닫는 괄호가 나오면 pop한 후 일치하는지 확인 / 불일치시 바로 끝
+
+2. Java Stack API
+
+
+  보완해야 될 점 
+
+1. Java Stack API 사용법을 몰랐음
+
+	import java.util.Stack;
+	Stack<Character> s = new Stack<Character>();
+
+
+2. char형의 wrapper class Character이것도 처음 알았음 
+
+```
+
+
+## `Method1` Stack 사용
+
+
+
+### 나의 풀이
+
+```java
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.Stack;
+
+public class SWEA_1218 {
+	static int T, ans;
+	static Stack<Character> s;
+	
+	public static void main(String[] args) throws Exception {
+		System.setIn( new FileInputStream("input-1218.txt") );
+		BufferedReader br = new BufferedReader( new InputStreamReader(System.in) );
+		
+		T = 10;
+		
+		for (int t = 1; t <= 10; t++) {
+			//초기화 
+			s = new Stack<Character>();
+			ans = -1;
+			
+			// 입력받기
+			br.readLine();
+			String temp = br.readLine();
+			
+			// 로직 
+			for (int i = 0; i < temp.length(); i++) {
+				// 여는 괄호 
+				char c = temp.charAt(i);
+				if(c == '(' || c == '<' || c == '[' || c == '{') {
+					s.push(c);
+				}
+				// 닫는 괄호 처리 
+				else { 
+					if(c == convert_bracket_openToClose(s.pop())) continue;
+					else {
+						ans = 0;
+						break;
+					}
+				}
+				
+			}
+			
+			if(s.empty() && ans != 0) ans = 1;
+			// 결과 출력 
+			System.out.println("#" + t +" " + ans);
+		}
+	}
+	
+	static char convert_bracket_openToClose(char c) {
+		char t=' ';
+		switch(c) {
+			case '(': t=')'; break;
+			case '<': t='>'; break;
+			case '{': t='}'; break;
+			case '[': t=']'; break;
+		}
+		return t;
+	}
+}
+```
+
+
