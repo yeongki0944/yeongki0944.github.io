@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "[Java] oop test"
+title:  "[Java] oop test review"
 published : false
-subtitle:   "oop test"
+subtitle:   "oop test review"
 categories: programming-language
 tags: java
 ---
@@ -49,7 +49,7 @@ public class p01 {
 
 ```
 
-## 2
+## 2  ❌
 
 ```java
 
@@ -84,7 +84,7 @@ public class p02 {
 
 ```
 
-## 3
+## 3 ❌
 
 ```java
 
@@ -99,6 +99,9 @@ public class p02 {
  
    답 : 1번
    The local variable name may not have been initialized
+	
+	해설 - 로컬변수는 자동 초기화가 되지 않는다. 
+	      멤버변수는 힙에 할당되면서 자동 초기화 된다. 
  */
 
 
@@ -174,7 +177,7 @@ public class p05 {
  */
 ```
 
-## 7
+## 7 ❌
 
 ```java
 /*  
@@ -185,6 +188,7 @@ public class p05 {
   내가 고른답 - private 
   
   정답 - 1, 3번 
+  해설 - 메서드 시그니처는 이름과 파라미터 갯수, 타입 2가지
  */
 
 // 보기 1번
@@ -228,7 +232,7 @@ class s4 extends Parent{
 
 ```
 
-## 8
+## 8 ❌
 
 ```java
 /*
@@ -277,6 +281,8 @@ public class p08 {
 
 정답 : new Object();
 The method read(Book) in the type p10 is not applicable for the arguments (Object)
+
+
 		
 */ 
 
@@ -300,7 +306,7 @@ public class p10 {
 
 ```
 
-## 11
+## 11 ❌
 
 ```java
 /* 
@@ -453,7 +459,7 @@ public class p15 {
 
 ```
 
-## 16
+## 16 ❌
 
 ```java
 /*
@@ -551,7 +557,7 @@ public class p18 {
 
 ```
 
-## 19
+## 19 ❌
 
 ```java
 
@@ -572,7 +578,7 @@ public class p19 {
 
 ```
 
-## 20
+## 20 ❌
 
 ```java
 /*
@@ -699,7 +705,7 @@ public class p21 {
  */
 ```
 
-## 23
+## 23 ❌
 
 ```java
 
@@ -714,6 +720,8 @@ public class p21 {
   	
   	정답 : 3번 
   	Cannot define dimension expressions when an array initializer is provided
+	해설 int[] arr5 = new int[]{4, 3, 2}; 가능함
+		
   	
  */
 
@@ -743,7 +751,7 @@ public class p23 {
  */
 ```
 
-## 25
+## 25 ❌
 
 ```java
 /* 
@@ -827,7 +835,7 @@ public class p26 {
 
 ```
 
-## 27
+## 27 ❌
 
 ```java
 /* 
@@ -840,7 +848,8 @@ public class p26 {
   	4. 생성자의 이름은 클래스의 이름과 같아야 한다. 
 
 
-	정답 : 3번???
+	정답 : 3번
+	해설 : 
 */ 
 
 // 1번 - 경고 메시지 This method has a constructor name
@@ -972,7 +981,7 @@ public class p29 {
 
 ```
 
-## 30
+## 30 ❌
 
 ```java
 /* 
