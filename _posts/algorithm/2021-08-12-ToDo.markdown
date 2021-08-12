@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "알고리즘 필수 숙지 내용 정리"
+subtitle:   "알고리즘 필수 숙지 내용"
+categories: algorithm
+tags: summary
+---
+
+
+## 1. 테스트 케이스 입출력
+
+1. Scanner 
+2. BufferedReader
+3. StringTokenizer
+4. StringBuilder
+5. String - split
+
+## 2. 배열 탐색
+
+1. dy, dx 개념
+
+## 3. 자료구조의 적잘한 사용
+
+1. boolean 타입
+2. 1,2차원 배열
+3. Bit연산자
+4. 스택
+5. 큐
+6. 힙
+7. 우선순위 큐
+8. Max, Min 힙
+
+## 4. 순열, 조합, 부분집합 구현 능력
+
+1. for문
+2. 재귀
+3. Bitmask 
+4. 
