@@ -7,6 +7,8 @@ tags: summary
 ---
 
 
+
+
 ## 1. 테스트 케이스 입출력
 
 1. Scanner 
@@ -36,3 +38,79 @@ tags: summary
 2. 재귀
 3. Bitmask 
 4. 
+
+
+
+
+
+https://velog.io/@yoonjy1106/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%99%84%EC%A0%84-%EA%B2%80%EC%83%89Exhaustive-Search-%EC%88%9C%EC%97%B4%EC%A1%B0%ED%95%A9%EB%B6%80%EB%B6%84%EC%A7%91%ED%95%A9
+
+배열 탐색하는것은 배열움직이기 1~4 이거를 클리어하자.
+
+
+1. 생성 / 삭제 
+	생성 - 재귀 호출 ( 파리미터는 복사 / static 변수는 공유 ) / 새로운 스택 생성
+
+	삭제 - base case에 걸려 return시 ( 파리미터는 GC / static 변수는 유지 )
+
+
+
+```java
+package basic;
+
+import java.util.Arrays;
+
+public class BASIC_Comb_FC {
+
+	static int COUNT = 0;
+	static int[] src = { 1, 2, 3, 4, 5 };
+	static int[] tgt = new int[3];
+	static boolean[] select = new boolean[src.length];
+	
+	/*
+	 
+	  
+	 */
+	
+	public static void main(String[] args) {
+		comb(0, 0);
+		System.out.println(COUNT);
+	}
+	
+	static void comb(int srcIdx, int tgtIdx) {
+		// base case 
+		if(tgtIdx == tgt.length) {
+			// complete code  -  순열이 하나 완성됨. / 문제에 맞는 추가 작업 
+			System.out.println(Arrays.toString(tgt));
+			COUNT++;
+			return;
+		}
+```
+
+```java		
+		1번. for문으로 구현 
+
+		for (int i = srcIdx; i < src.length; i++) {
+		
+			tgt[tgtIdx] = src[i];
+			comb( i+1, tgtIdx + 1 );
+			 ====
+		}
+```
+
+```java
+		2번. 재귀함수로 구현
+			
+		// 값 지정 
+		tgt[tgtIdx] = src[srcIdx];
+		// Yes
+		comb(srcIdx+1, tgtIdx+1);
+		// No
+		comb(srcIdx+1, tgtIdx);
+```
+
+```java		
+	}
+	
+}
+```
